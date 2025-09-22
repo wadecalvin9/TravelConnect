@@ -35,6 +35,8 @@ Route::get('/about', function () {
     });
 
 //tour.shows
+
+
 Route::get('/tours/{id}', function ($id) {
     $tour = Tour::findOrFail($id); // fetch the tour
     return view('tours.show', ['tour' => $tour]);

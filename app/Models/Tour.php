@@ -15,7 +15,8 @@ class Tour extends Model
         'special',
         'popular',
         'duration',
-        'itenary'
+        'itenary',
+        'images',
     ];
 
 
@@ -26,5 +27,6 @@ class Tour extends Model
 
      protected $casts = [
         'itenary' => 'array',
+        'images' => 'array',
     ];
 }

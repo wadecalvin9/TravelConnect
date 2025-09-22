@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TourResource\Pages;
-use App\Filament\Resources\TourResource\RelationManagers;
 use App\Models\Tour;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
@@ -14,11 +13,9 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TableColumn;
+
 class TourResource extends Resource
 {
     protected static ?string $model = Tour::class;
@@ -29,18 +26,56 @@ class TourResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('destination_id')->relationship('destination','name')->required(),
-                TextInput::make('name')->required(),
-                TextInput::make('description')->required(),
-                TextInput::make('image')->required(),
-                TextInput::make('price'),
-                Checkbox::make('special'),
-                Checkbox::make('popular'),
-                TextInput::make('duration'),
-                Repeater::make('itenary')->schema([
-                    TextInput::make('Day'),
-                    TextInput::make('Activity'),
-                ])
+                Forms\Components\Section::make('Tour Details')
+                    ->schema([
+                        Select::make('destination_id')
+                            ->label('Destination')
+                            ->relationship('destination', 'name')
+                            ->required(),
+                        TextInput::make('name')
+                            ->label('Tour Name')
+                            ->required(),
+                        TextInput::make('description')
+                            ->label('Description')
+                            ->required(),
+                        TextInput::make('image')
+                            ->label('Main Image URL')
+                            ->required(),
+                        TextInput::make('price')
+                            ->label('Price'),
+                        TextInput::make('duration')
+                            ->label('Duration'),
+                        Checkbox::make('special')
+                            ->label('Special Tour'),
+                        Checkbox::make('popular')
+                            ->label('Popular Tour'),
+                    ])
+                    ->columns(2),
+
+                Forms\Components\Section::make('Itinerary')
+                    ->schema([
+                        Repeater::make('itenary')
+                            ->label('Daily Schedule')
+                            ->schema([
+                                TextInput::make('Day')->required(),
+                                TextInput::make('Activity')->required(),
+                            ])
+                            ->columns(2)
+                            ->createItemButtonLabel('Add Day'),
+                    ]),
+
+                Forms\Components\Section::make('Gallery')
+                    ->schema([
+                        Repeater::make('images')
+                            ->label('Gallery Images')
+                            ->schema([
+                                TextInput::make('image')
+                                    ->label('Image URL')
+                                    ->required(),
+                            ])
+                            ->columns(1)
+                            ->createItemButtonLabel('Add Image'),
+                    ]),
             ]);
     }
 
@@ -48,14 +83,24 @@ class TourResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('destination.name')->sortable()->searchable(),
-                TextColumn::make('name')->sortable()->searchable(),
-                TextColumn::make('description'),
-                ImageColumn::make('image'),
-                TextColumn::make('price'),
-                TextColumn::make('special'),
-                TextColumn::make('popular'),
-                TextColumn::make('duration'),
+                TextColumn::make('destination.name')
+                    ->label('Destination')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('name')
+                    ->label('Tour Name')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('price')
+                    ->label('Price'),
+                TextColumn::make('duration')
+                    ->label('Duration'),
+                TextColumn::make('special')
+                    ->label('Special'),
+                TextColumn::make('popular')
+                    ->label('Popular'),
+                ImageColumn::make('image')
+                    ->label('Main Image'),
             ])
             ->filters([
                 //
