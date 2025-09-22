@@ -3,6 +3,7 @@
 use App\Http\Controllers\DisplayController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use App\Http\Controllers\inquiryController;
 use App\Models\Tour;
 Route::get('/', function(){
     return view('welcome');
@@ -16,7 +17,7 @@ Route::get("/destinations",[DisplayController::class, 'getalldestinations',]);
 
 
 //tours
-Route::get('/tours',[DisplayController::class, 'getalltours']);
+Route::get('/tours',[DisplayController::class, 'getalltours'])->name('tours.index');
 
 //blog
 
@@ -35,6 +36,16 @@ Route::get('/about', function () {
     });
 
 //tour.shows
+
+
+
+
+
+
+//inquiries
+
+Route::post('/inquiries',[inquiryController::class, 'inquiry'])->name('inquiries.store');
+
 
 
 Route::get('/tours/{id}', function ($id) {

@@ -15,11 +15,15 @@
       </ul>
 
       <div class="d-flex">
-        @auth
-          <a href="/user" class="btn btn-outline-light me-2">Dashboard</a>
-        @endauth
+         @auth
+    @if (auth()->user()->hasRole('super_admin'))
+        <a href="{{ url('/admin') }}" class="btn btn-outline-light me-2">Dashboard</a>
+    @else
+        <a href="{{ url('/user') }}" class="btn btn-outline-light me-2">Dashboard</a>
+    @endif
+@endauth
         @guest
-          <a href="/user" class="btn btn-outline-light">Sign In</a>
+          <a href="/user" class="btn btn-outline-dark text-black">Sign In</a>
         @endguest
       </div>
     </div>
@@ -47,9 +51,14 @@
         </ul>
 
         <div class="d-flex mt-3">
-          @auth
-            <a href="/user" class="btn btn-outline-light me-2">Dashboard</a>
-          @endauth
+           @auth
+    @if (auth()->user()->hasRole('super_admin'))
+        <a href="{{ url('/admin') }}" class="btn btn-outline-light me-2">Dashboard</a>
+    @else
+        <a href="{{ url('/user') }}" class="btn btn-outline-light me-2">Dashboard</a>
+    @endif
+@endauth
+
           @guest
             <a href="/user" class="btn btn-outline-light">Sign In</a>
           @endguest

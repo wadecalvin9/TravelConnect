@@ -62,23 +62,6 @@ select:focus[data-flux-control] {
 }
 
 
-body {
-  padding-top: 70px; /* prevent hero from hiding under navbar */
-}
-
-/* smooth change */
-#mainNav {
-  transition: background-color .3s ease;
-}
-
-/* collapsed mobile menu background */
-@media (max-width: 991px) {
-  .navbar-collapse {
-    background: rgba(0, 0, 0, 0.95);
-    padding: 1rem;
-  }
-}
-
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */

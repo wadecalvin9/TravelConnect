@@ -2,7 +2,7 @@
     {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
      <!-- Hero Section -->
 <section class="hero d-flex align-items-center justify-content-center text-center text-white"
-         style="background-image: url('https://images.pexels.com/photos/932638/pexels-photo-932638.jpeg');
+         style="background-image: url('https://images.pexels.com/photos/33045/lion-wild-africa-african.jpg');
                 width:100%;height:100vh;
                 background-size:cover;
                 background-position:center;
