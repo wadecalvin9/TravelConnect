@@ -31,7 +31,7 @@ public function index()
  {
   $tours = Tour::all();
   $destinations = destination::all();
-    return view('tours.index',compact('tours','destinations'));
+    return view('Tours.index',compact('tours','destinations'));
 }
 
 }

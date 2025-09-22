@@ -39,7 +39,7 @@ Route::get('/about', function () {
 
 Route::get('/tours/{id}', function ($id) {
     $tour = Tour::findOrFail($id); // fetch the tour
-    return view('tours.show', ['tour' => $tour]);
+    return view('Tours.show', ['tour' => $tour]);
 })->name('tours.show');
 
 Route::view('dashboard', 'dashboard')

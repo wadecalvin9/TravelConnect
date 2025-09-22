@@ -1,7 +1,6 @@
 <x-main>
     <title>Book Tour</title>
     <livewire:header2 />
-
     <section class="py-5" style="background: #f8f9fa;">
         <div class="container">
 
@@ -106,21 +105,27 @@
     </section>
 
     <!-- Lightbox Modal -->
-    <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content border-0 bg-transparent">
-                <div class="modal-body p-0">
-                    <img src="" id="galleryModalImg" class="img-fluid rounded" alt="Tour Image">
-                </div>
+
+<div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 bg-transparent">
+            <div class="modal-body p-0 d-flex justify-content-center align-items-center">
+                <img src="" id="galleryModalImg" class="img-fluid rounded modal-img" alt="Tour Image">
             </div>
         </div>
     </div>
+</div>
 
     <style>
         body {
             background: #f8f9fa;
             font-family: 'Poppins', sans-serif;
         }
+        .modal-img {
+    max-width: 90vw;  /* Maximum width: 90% of viewport */
+    max-height: 80vh; /* Maximum height: 80% of viewport */
+    object-fit: contain;
+}
 
         .card {
             backdrop-filter: blur(10px);
@@ -152,7 +157,6 @@
             }
         }
     </style>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const galleryImages = document.querySelectorAll('.gallery-image img');
