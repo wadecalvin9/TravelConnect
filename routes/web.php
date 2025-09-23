@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\inquiryController;
 use App\Models\Tour;
+use App\Models\Config;
 Route::get('/', function(){
     return view('welcome');
 
@@ -26,7 +27,8 @@ Route::get('/blog', function () {
     });
 //contact
 Route::get('/contact', function () {
-    return view ('contact');
+    $setting = Config::first();
+    return view ('contact', ['setting' => $setting]);
     });
     //reviews
     Route::post('/reviews',[inquiryController::class, 'review'])->name('reviews.store');
@@ -34,7 +36,8 @@ Route::get('/contact', function () {
 //About
 
 Route::get('/about', function () {
-    return view ('about');
+    $setting = Config::first();
+    return view ('about', ['setting' => $setting]);
     });
 
 //tour.shows

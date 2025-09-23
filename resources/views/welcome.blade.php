@@ -1,6 +1,31 @@
 <x-main>
     <livewire:header />
-    <livewire:hero />
+    <!-- Hero Section -->
+    <section class="hero d-flex align-items-center justify-content-center text-center text-white"
+        style="background-image: url('{{ $settings->hero_image }}');
+                width:100%;height:100vh;
+                background-size:cover;
+                background-position:center;
+                background-repeat:no-repeat;
+                position:relative;">
+
+        <!-- Overlay (optional) -->
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);"></div>
+
+        <!-- Content -->
+        <div style="position:relative;z-index:2;">
+            <h1 class="display-3 fw-bold">{{ $settings->hero_title }}</h1>
+            <p class="lead">{{ $settings->hero_description }}.</p>
+            <a href="#tours" class="btn btn-primary btn-lg mt-3">Book Tour Now</a><br>
+            <!-- <img src="https://images.pexels.com/photos/1076758/pexels-photo-1076758.jpeg" alt="" style="width:10px;height:10px; transform: translateY(20px);">
+    -->
+        </div>
+    </section>
+
+
+
+
+
     <!-- Popular Destinations Carousel -->
     <section class="py-5">
         <div class="container">
@@ -108,43 +133,43 @@
 
     <!-- Testimonials -->
     <section class="py-5 bg-light">
-    <div class="container text-center">
-        <h2 class="mb-3">What Our Clients Say</h2>
-        <p class="text-muted mb-5">Real experiences from happy travelers</p>
+        <div class="container text-center">
+            <h2 class="mb-3">What Our Clients Say</h2>
+            <p class="text-muted mb-5">Real experiences from happy travelers</p>
 
-        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                @foreach ($reviews as $index => $review)
-                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                        <div class="card glass-card border-0 shadow-sm mx-auto" style="max-width: 600px;">
-                            <div class="card-body">
-                                <p class="card-text fst-italic">"{{ $review->comment }}"</p>
-                                <div class="d-flex align-items-center justify-content-center mt-4">
-                                    <img src="https://cdn-icons-png.flaticon.com/128/149/149071.png"
-                                         class="rounded-circle me-3" alt="Client" width="60" height="60">
-                                    <div class="text-start">
-                                        <h6 class="mb-0 fw-bold">{{ $review->name }}</h6>
-                                        <small class="text-muted">{{ $review->country }}</small>
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @foreach ($reviews as $index => $review)
+                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                            <div class="card glass-card border-0 shadow-sm mx-auto" style="max-width: 600px;">
+                                <div class="card-body">
+                                    <p class="card-text fst-italic">"{{ $review->comment }}"</p>
+                                    <div class="d-flex align-items-center justify-content-center mt-4">
+                                        <img src="https://cdn-icons-png.flaticon.com/128/1144/1144709.png"
+                                            class="rounded-circle me-3" alt="Client" width="60" height="60">
+                                        <div class="text-start">
+                                            <h6 class="mb-0 fw-bold">{{ $review->name }}</h6>
+                                            <small class="text-muted">From {{ $review->country }}</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
 
-            <!-- Controls -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel"
+                <!-- Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel"
                     data-bs-slide="prev">
-                <span class="carousel-control-prev-icon bg-dark rounded-circle p-2"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel"
+                    <span class="carousel-control-prev-icon bg-dark rounded-circle p-2"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel"
                     data-bs-slide="next">
-                <span class="carousel-control-next-icon bg-dark rounded-circle p-2"></span>
-            </button>
+                    <span class="carousel-control-next-icon bg-dark rounded-circle p-2"></span>
+                </button>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
     <!-- Motto & Achievements -->

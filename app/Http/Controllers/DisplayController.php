@@ -6,6 +6,7 @@ use App\Models\destination;
 use App\Models\Tour;
 use Illuminate\Http\Request;
 use App\Models\review;
+use App\Models\Config;
 
 
 
@@ -18,8 +19,9 @@ public function index()
     $destinations = destination::all()->take(5);
     $tours = Tour::all()->take(5);
     $reviews = review::all();
+    $settings= Config::first();
 
-    return view('welcome',compact('destinations','tours', 'reviews'));
+    return view('welcome',compact('destinations','tours', 'reviews', 'settings'));
  }
  public function getalldestinations()
  {

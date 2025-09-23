@@ -5,8 +5,8 @@
          style="background-image: url('https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg'); background-size: cover; background-position: center; height: 50vh;">
   <div class="overlay" style="background: rgba(0,0,0,0.4); width: 100%; height: 100%; position: absolute; top:0; left:0;"></div>
   <div class="position-relative">
-    <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">About Us</h1>
-    <p class="lead animate__animated animate__fadeInUp animate__delay-1s">Discover our story, passion, and adventures around the world.</p>
+    <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">{{ $setting->about_title }}</h1>
+    <p class="lead animate__animated animate__fadeInUp animate__delay-1s">{{ $setting->about_description }}.</p>
   </div>
 </section>
 
@@ -17,13 +17,13 @@
       <div class="col-md-6">
         <div class="card glass-card-light p-4 shadow-sm h-100 animate__animated animate__fadeInLeft">
           <h3 class="mb-3">Our Mission</h3>
-          <p>To provide unforgettable travel experiences that create lasting memories for our clients, combining comfort, adventure, and culture.</p>
+          <p>{{ $setting->mission }}.</p>
         </div>
       </div>
       <div class="col-md-6">
         <div class="card glass-card-light p-4 shadow-sm h-100 animate__animated animate__fadeInRight">
           <h3 class="mb-3">Our Vision</h3>
-          <p>To be the most trusted and innovative travel company, inspiring wanderlust while delivering exceptional service worldwide.</p>
+          <p>{{ $setting->vision }}.</p>
         </div>
       </div>
     </div>

@@ -74,15 +74,17 @@
                         <div
                             class="card glass-card-light p-4 shadow-sm h-100 d-flex flex-column justify-content-center">
                             <h4 class="mb-3">Contact Info</h4>
-                            <p><strong>Email:</strong> info@travelsite.com</p>
-                            <p><strong>Phone:</strong> +1 234 567 890</p>
-                            <p><strong>Address:</strong> 123 Travel Street, Adventure City, World</p>
+                            <p><strong>Email:</strong> {{ $setting->email }}</p>
+                            <p><strong>Phone:</strong>{{ $setting->phone }}</p>
+                            <p><strong>Address:</strong> {{ $setting->address }}</p>
 
                             <h5 class="mt-4 mb-2">Follow Us</h5>
                             <div class="d-flex gap-3">
-                                <a href="#" class="btn btn-outline-primary btn-sm">Facebook</a>
-                                <a href="#" class="btn btn-outline-primary btn-sm">Instagram</a>
-                                <a href="#" class="btn btn-outline-primary btn-sm">Twitter</a>
+                                <a href="{{ $setting->facebook }}" class="btn btn-outline-primary btn-sm">Facebook</a>
+                                <a href="{{ $setting->instagram }}" class="btn btn-outline-primary btn-sm">Instagram</a>
+                                <a href="{{ $setting->twitter }}" class="btn btn-outline-primary btn-sm">Twitter</a>
+
+                                <a href="{{ $setting->youtube }}" class="btn btn-outline-primary btn-sm">Youtube</a>
                             </div>
                         </div>
                     </div>
@@ -90,10 +92,9 @@
                     <div class="col-md-6">
                         <div class="card glass-card-light shadow-sm" style="height:400px;">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0198231193163!2d-122.41941518468122!3d37.77492977975915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c64a75a9f%3A0x3a4b8d94b90fa3b2!2sSan+Francisco!5e0!3m2!1sen!2sus!4v1695427446223!5m2!1sen!2sus"
-                                width="100%" height="100%" style="border:0; border-radius:15px;" allowfullscreen=""
-                                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63819.26752067216!2d36.62410321560637!3d-1.3540457000547994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f02e428edc063%3A0xd8c5ba0ad5a3c153!2sNgong!5e0!3m2!1sen!2ske!4v1758655213376!5m2!1sen!2ske"
+                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>

@@ -36,17 +36,17 @@
         <h5>Quick Links</h5>
         <ul class="list-unstyled">
           <li><a href="#" class="text-white text-decoration-none">Home</a></li>
-          <li><a href="#" class="text-white text-decoration-none">Destinations</a></li>
-          <li><a href="#" class="text-white text-decoration-none">Tours</a></li>
-          <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+          <li><a href="/destinations" class="text-white text-decoration-none">Destinations</a></li>
+          <li><a href="/tours" class="text-white text-decoration-none">Tours</a></li>
+          <li><a href="/contact" class="text-white text-decoration-none">Contact</a></li>
         </ul>
       </div>
 
       <!-- Contact Info -->
       <div class="col-md-4">
         <h5>Contact Us</h5>
-        <p>Email: info@travelConnect.com</p>
-        <p>Phone: +123 456 789</p>
+        <p>Email: Cyrilbill@gmail.com</p>
+        <p>Phone: +254 794 865 939</p>
         <p>Location: Nairobi, Kenya</p>
       </div>
     </div>

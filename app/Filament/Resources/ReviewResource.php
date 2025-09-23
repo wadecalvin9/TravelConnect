@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ReviewResource\Pages;
 use App\Filament\Resources\ReviewResource\RelationManagers;
-use App\Models\Review;
+use App\Models\review;
 use Filament\Forms;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -18,7 +18,7 @@ use Filament\Tables\Columns\TextColumn;
 
 class ReviewResource extends Resource
 {
-    protected static ?string $model = Review::class;
+    protected static ?string $model = review::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
