@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\destination;
 use App\Models\Tour;
 use Illuminate\Http\Request;
+use App\Models\review;
 
 
 
@@ -16,8 +17,9 @@ public function index()
 {
     $destinations = destination::all()->take(5);
     $tours = Tour::all()->take(5);
+    $reviews = review::all();
 
-    return view('welcome',compact('destinations','tours'));
+    return view('welcome',compact('destinations','tours', 'reviews'));
  }
  public function getalldestinations()
  {

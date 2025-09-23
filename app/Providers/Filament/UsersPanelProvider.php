@@ -23,6 +23,7 @@ use Spatie\Permission\Middleware\RoleMiddleware;
 use TomatoPHP\FilamentSubscriptions\FilamentSubscriptionsProvider;
 use Rupadana\FilamentAnnounce\FilamentAnnouncePlugin;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
+use App\Filament\Resources\InquiryResource\Widgets\InquiryStats;
 
 class UsersPanelProvider extends PanelProvider
 {
@@ -41,7 +42,7 @@ class UsersPanelProvider extends PanelProvider
             ->login()
             ->registration()
             ->topNavigation()
-            ->topbar()
+
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Users/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -50,9 +51,11 @@ class UsersPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Users/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
+                InquiryStats::class,
 
             ])
             ->plugins([
+
     \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
      FilamentAnnouncePlugin::make()
                     ->pollingInterval('30s')

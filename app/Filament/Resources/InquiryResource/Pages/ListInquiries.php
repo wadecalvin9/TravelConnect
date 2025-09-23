@@ -10,10 +10,11 @@ class ListInquiries extends ListRecords
 {
     protected static string $resource = InquiryResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make(),
-        ];
-    }
+    protected function getHeaderWidgets(): array
+{
+    return [
+
+    ];
+}
+
 }

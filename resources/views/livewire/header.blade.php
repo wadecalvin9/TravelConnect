@@ -9,9 +9,9 @@
       <ul class="navbar-nav mx-auto">
         <li class="nav-item"><a class="nav-link active" href="/destinations">Destinations</a></li>
         <li class="nav-item"><a class="nav-link" href="/tours">Tours</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
       </ul>
 
       <div class="d-flex">
@@ -43,9 +43,9 @@
         <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link active" href="/destinations">Destinations</a></li>
           <li class="nav-item"><a class="nav-link" href="/tours">Tours</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
         </ul>
 
         <div class="d-flex mt-3">

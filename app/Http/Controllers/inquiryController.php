@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Inquiry;
+use App\Models\inquiry;
 use Illuminate\Http\Request;
+use App\Models\review;
+
 class InquiryController extends Controller
 {
     public function inquiry(Request $request)
@@ -19,8 +21,24 @@ class InquiryController extends Controller
             'tour_id' => 'required|integer',
             'user_id' => 'nullable|integer',
         ]);
-        Inquiry::create($validatedData);
+        inquiry::create($validatedData);
         return redirect()->route('tours.index')
-                         ->with('success', 'Your inquiry has been sent successfully!');
+            ->with('success', 'Your inquiry has been sent successfully!');
     }
+
+
+    public function review(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'comment' => 'required|string'
+
+        ]);
+        review::create($validatedData);
+        return redirect('contact')
+            ->with('success', 'Thank you for the review!');
+    }
+
+
 }

@@ -23,7 +23,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use AchyutN\FilamentLogViewer\FilamentLogViewer;
 use App\Models\Role;
 use Spatie\Permission\Middleware\RoleMiddleware;
-
+use app\Filament\Resources\InquiryResource\Widgets\InquiryStats;
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -55,36 +55,31 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-
+                InquiryStats::class,
             ])
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
-                FilamentLogViewer::make(),
                 FilamentUserActivityPlugin::make(),
-                \TomatoPHP\FilamentAlerts\FilamentAlertsPlugin::make(),
-                \TomatoPHP\FilamentAlerts\FilamentAlertsPlugin::make()
-                    ->useSettingsHub(),
                 FilamentAnnouncePlugin::make()
                     ->pollingInterval('30s')
                     ->defaultColor(Color::Blue),
                 \TomatoPHP\FilamentArtisan\FilamentArtisanPlugin::make(),
                 BreezyCore::make()
                     ->myProfile(
+
                         shouldRegisterUserMenu: true, // Sets the 'account' link in the panel User Menu (default = true)
                         userMenuLabel: 'My Profile', // Customizes the 'account' link label in the panel User Menu (default = null)
                         shouldRegisterNavigation: true, // Adds a main navigation item for the My Profile page (default = false)
                         navigationGroup: 'profile', // Sets the navigation group for the My Profile page (default = null)
                         hasAvatars: false, // Enables the avatar upload form component (default = false)
                         slug: 'my-profile' // Sets the slug for the profile page (default = 'my-profile')
+
+
                     )
                         ->enableTwoFactorAuthentication(
         force: false, // force the user to enable 2FA before they can use the application (default = false)
     )
      ->enableBrowserSessions(condition: true)
-
-
-
-
             ])
             ->middleware([
                 EncryptCookies::class,

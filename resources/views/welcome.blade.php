@@ -1,20 +1,20 @@
 <x-main>
     <livewire:header />
-<livewire:hero/>
-
+    <livewire:hero />
     <!-- Popular Destinations Carousel -->
     <section class="py-5">
         <div class="container">
             <h1 class="mb-3 text-center fw-bold">Popular Destinations</h1>
             <p class="mb-5 text-center text-muted">Explore our top destinations from our clients reviews</p>
-
             <div id="destinationsCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     @foreach ($destinations as $index => $destination)
                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                             <div class="card border-0 shadow-lg rounded-3 overflow-hidden glass-card">
-                                <img src="{{ $destination->image }}" class="card-img fixed-img" alt="{{ $destination->name }}">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end p-4 overlay-gradient">
+                                <img src="{{ $destination->image }}" class="card-img fixed-img"
+                                    alt="{{ $destination->name }}">
+                                <div
+                                    class="card-img-overlay d-flex flex-column justify-content-end p-4 overlay-gradient">
                                     <h3 class="card-title fw-bold">{{ $destination->name }}</h3>
                                     <p class="card-text">{{ $destination->description }}</p>
                                     <a href="#" class="btn btn-light btn-lg rounded-pill mt-2 w-50">Explore</a>
@@ -23,10 +23,12 @@
                         </div>
                     @endforeach
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#destinationsCarousel" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#destinationsCarousel"
+                    data-bs-slide="prev">
                     <span class="carousel-control-prev-icon"></span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#destinationsCarousel" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#destinationsCarousel"
+                    data-bs-slide="next">
                     <span class="carousel-control-next-icon"></span>
                 </button>
             </div>
@@ -43,11 +45,14 @@
                 @foreach ($tours as $tour)
                     @if ($tour->popular)
                         <div class="card glass-card tour-card">
-                            <img src="{{ $tour->image }}" class="card-img-top card-img-fixed" alt="{{ $tour->name }}">
+                            <img src="{{ $tour->image }}" class="card-img-top card-img-fixed"
+                                alt="{{ $tour->name }}">
                             <div class="card-body text-center d-flex flex-column">
                                 <h5 class="card-title">{{ $tour->name }}</h5>
-                                <p class="card-text flex-grow-1">{{ \Illuminate\Support\Str::limit($tour->description, 100) }}</p>
-                                <a href="#" class="btn btn-sm btn-primary mt-auto">Book Now</a>
+                                <p class="card-text flex-grow-1">
+                                    {{ \Illuminate\Support\Str::limit($tour->description, 100) }}</p>
+                                <a href="{{ route('tours.show', $tour->id) }}"
+                                    class="btn btn-sm btn-primary mt-auto">Book Now</a>
                             </div>
                         </div>
                     @endif
@@ -66,16 +71,19 @@
                 @foreach ($tours as $tour)
                     @if ($tour->special)
                         <div class="card glass-card package-card">
-                            <img src="{{ $tour->image }}" class="card-img-top card-img-fixed" alt="{{ $tour->name }}">
+                            <img src="{{ $tour->image }}" class="card-img-top card-img-fixed"
+                                alt="{{ $tour->name }}">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ $tour->name }}</h5>
-                                <p class="card-text flex-grow-1">{{ \Illuminate\Support\Str::limit($tour->description, 100) }}</p>
+                                <p class="card-text flex-grow-1">
+                                    {{ \Illuminate\Support\Str::limit($tour->description, 100) }}</p>
                                 <h6 class="fw-bold text-primary mt-auto">
                                     {{ $tour->price }} <small class="text-muted">/person</small>
                                 </h6>
                             </div>
                             <div class="card-footer bg-transparent border-0">
-                                <a href="#" class="btn btn-primary w-100">Book Now</a>
+                                <a href="{{ route('tours.show', $tour->id) }}" class="btn btn-primary w-100">Book
+                                    Now</a>
                             </div>
                         </div>
                     @endif
@@ -90,7 +98,8 @@
             <h2 class="mb-4">Experience the Journey</h2>
             <div class="ratio ratio-16x9 shadow-lg rounded overflow-hidden mx-auto" style="max-width: 900px;">
                 <iframe src="https://www.youtube.com/embed/sPb_rA1bIUk?rel=0&mute=1" title="YouTube video player"
-                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen>
                 </iframe>
             </div>
@@ -99,64 +108,44 @@
 
     <!-- Testimonials -->
     <section class="py-5 bg-light">
-        <div class="container text-center">
-            <h2 class="mb-3">What Our Clients Say</h2>
-            <p class="text-muted mb-5">Real experiences from happy travelers</p>
+    <div class="container text-center">
+        <h2 class="mb-3">What Our Clients Say</h2>
+        <p class="text-muted mb-5">Real experiences from happy travelers</p>
 
-            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @foreach ($reviews as $index => $review)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                         <div class="card glass-card border-0 shadow-sm mx-auto" style="max-width: 600px;">
                             <div class="card-body">
-                                <p class="card-text fst-italic">"Our trip to Paris was magical. Everything was perfectly planned."</p>
+                                <p class="card-text fst-italic">"{{ $review->comment }}"</p>
                                 <div class="d-flex align-items-center justify-content-center mt-4">
-                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" class="rounded-circle me-3" alt="Client" width="60" height="60">
+                                    <img src="https://cdn-icons-png.flaticon.com/128/149/149071.png"
+                                         class="rounded-circle me-3" alt="Client" width="60" height="60">
                                     <div class="text-start">
-                                        <h6 class="mb-0 fw-bold">Emily Johnson</h6>
-                                        <small class="text-muted">From USA</small>
+                                        <h6 class="mb-0 fw-bold">{{ $review->name }}</h6>
+                                        <small class="text-muted">{{ $review->country }}</small>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item">
-                        <div class="card glass-card border-0 shadow-sm mx-auto" style="max-width: 600px;">
-                            <div class="card-body">
-                                <p class="card-text fst-italic">"The Tokyo package was a dream come true. From temples to modern city life."</p>
-                                <div class="d-flex align-items-center justify-content-center mt-4">
-                                    <img src="https://randomuser.me/api/portraits/men/36.jpg" class="rounded-circle me-3" alt="Client" width="60" height="60">
-                                    <div class="text-start">
-                                        <h6 class="mb-0 fw-bold">James Smith</h6>
-                                        <small class="text-muted">From UK</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card glass-card border-0 shadow-sm mx-auto" style="max-width: 600px;">
-                            <div class="card-body">
-                                <p class="card-text fst-italic">"Bali was paradise! The beach resort was stunning."</p>
-                                <div class="d-flex align-items-center justify-content-center mt-4">
-                                    <img src="https://randomuser.me/api/portraits/women/68.jpg" class="rounded-circle me-3" alt="Client" width="60" height="60">
-                                    <div class="text-start">
-                                        <h6 class="mb-0 fw-bold">Sophia Lee</h6>
-                                        <small class="text-muted">From Australia</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon bg-dark rounded-circle p-2"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon bg-dark rounded-circle p-2"></span>
-                </button>
+                @endforeach
             </div>
+
+            <!-- Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon bg-dark rounded-circle p-2"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon bg-dark rounded-circle p-2"></span>
+            </button>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- Motto & Achievements -->
     <section class="py-5 bg-light">
@@ -209,6 +198,7 @@
             border-radius: 1rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .glass-card:hover {
             transform: scale(1.03);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
@@ -232,7 +222,8 @@
             scroll-behavior: smooth;
         }
 
-        .tour-card, .package-card {
+        .tour-card,
+        .package-card {
             min-width: 260px;
             max-width: 280px;
             flex: 0 0 auto;

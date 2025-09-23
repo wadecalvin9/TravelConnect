@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\InquiryResource\Pages;
-use App\Models\Inquiry;
+use App\Models\inquiry;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Components\Select;
@@ -16,9 +16,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class InquiryResource extends Resource
 {
-    protected static ?string $model = Inquiry::class;
+    protected static ?string $model = inquiry::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-paper-airplane';
 
     // ---------------- FORM ----------------
     public static function form(Form $form): Form

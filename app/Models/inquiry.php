@@ -21,7 +21,7 @@ class inquiry extends Model
 
     public function destination()
     {
-        return $this->belongsTo(Destination::class, 'destination_id');
+        return $this->belongsTo(destination::class, 'destination_id');
     }
 
     public function tour()

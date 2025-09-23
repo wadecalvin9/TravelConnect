@@ -28,6 +28,8 @@ Route::get('/blog', function () {
 Route::get('/contact', function () {
     return view ('contact');
     });
+    //reviews
+    Route::post('/reviews',[inquiryController::class, 'review'])->name('reviews.store');
 
 //About
 
