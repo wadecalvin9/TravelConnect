@@ -2,11 +2,12 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ReviewResource\Pages;
-use App\Filament\Resources\ReviewResource\RelationManagers;
-use App\Models\review;
+use App\Filament\Resources\TeamResource\Pages;
+use App\Filament\Resources\TeamResource\RelationManagers;
+use App\Models\Team;
+use Dom\Text;
+use Faker\Provider\Image;
 use Filament\Forms;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,20 +16,21 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 
-class ReviewResource extends Resource
+class TeamResource extends Resource
 {
-    protected static ?string $model = review::class;
+    protected static ?string $model = Team::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-hand-thumb-up';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('name')->required(),
-                TextInput::make('country')->required(),
-                Textarea::make('comment')->required(),
+                TextInput::make('position')->required(),
+                TextInput::make('Image_url')->required(),
             ]);
     }
 
@@ -36,9 +38,9 @@ class ReviewResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->sortable()->searchable(),
-                TextColumn::make('country')->sortable()->searchable(),
-                TextColumn::make('comment')->sortable()->searchable(),
+            TextColumn::make('name')->sortable()->searchable(),
+            TextColumn::make('position')->sortable()->searchable(),
+            ImageColumn::make('Image_url')
             ])
             ->filters([
                 //
@@ -63,9 +65,9 @@ class ReviewResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListReviews::route('/'),
-            'create' => Pages\CreateReview::route('/create'),
-            'edit' => Pages\EditReview::route('/{record}/edit'),
+            'index' => Pages\ListTeams::route('/'),
+            'create' => Pages\CreateTeam::route('/create'),
+            'edit' => Pages\EditTeam::route('/{record}/edit'),
         ];
     }
 }

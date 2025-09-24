@@ -59,7 +59,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
-                FilamentUserActivityPlugin::make(),
                 FilamentAnnouncePlugin::make()
                     ->pollingInterval('30s')
                     ->defaultColor(Color::Blue),

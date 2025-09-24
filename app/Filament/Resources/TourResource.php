@@ -12,6 +12,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
@@ -95,9 +96,9 @@ class TourResource extends Resource
                     ->label('Price'),
                 TextColumn::make('duration')
                     ->label('Duration'),
-                TextColumn::make('special')
+                CheckboxColumn::make('special')
                     ->label('Special'),
-                TextColumn::make('popular')
+                CheckboxColumn::make('popular')
                     ->label('Popular'),
                 ImageColumn::make('image')
                     ->label('Main Image'),

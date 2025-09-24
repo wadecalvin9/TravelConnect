@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Review;
+use App\Models\review;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ReviewPolicy
+class reviewPolicy
 {
     use HandlesAuthorization;
 
@@ -21,7 +21,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Review $review): bool
+    public function view(User $user, review $review): bool
     {
         return $user->can('view_review');
     }
@@ -37,7 +37,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Review $review): bool
+    public function update(User $user, review $review): bool
     {
         return $user->can('update_review');
     }
@@ -45,7 +45,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Review $review): bool
+    public function delete(User $user, review $review): bool
     {
         return $user->can('delete_review');
     }
@@ -61,7 +61,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, Review $review): bool
+    public function forceDelete(User $user, review $review): bool
     {
         return $user->can('force_delete_review');
     }
@@ -77,7 +77,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, Review $review): bool
+    public function restore(User $user, review $review): bool
     {
         return $user->can('restore_review');
     }
@@ -93,7 +93,7 @@ class ReviewPolicy
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, Review $review): bool
+    public function replicate(User $user, review $review): bool
     {
         return $user->can('replicate_review');
     }

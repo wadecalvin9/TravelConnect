@@ -6,6 +6,8 @@ use Livewire\Volt\Volt;
 use App\Http\Controllers\inquiryController;
 use App\Models\Tour;
 use App\Models\Config;
+use App\Models\Team;
+
 Route::get('/', function(){
     return view('welcome');
 
@@ -37,7 +39,8 @@ Route::get('/contact', function () {
 
 Route::get('/about', function () {
     $setting = Config::first();
-    return view ('about', ['setting' => $setting]);
+    $teams = Team::get();
+    return view ('about', ['setting' => $setting, 'teams' => $teams]);
     });
 
 //tour.shows

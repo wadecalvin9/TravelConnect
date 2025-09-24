@@ -16,7 +16,7 @@
         <div style="position:relative;z-index:2;">
             <h1 class="display-3 fw-bold">{{ $settings->hero_title }}</h1>
             <p class="lead">{{ $settings->hero_description }}.</p>
-            <a href="#tours" class="btn btn-primary btn-lg mt-3">Book Tour Now</a><br>
+            <a href="/tours" class="btn btn-outline-light btn-lg mt-3">Book Tour Now</a><br>
             <!-- <img src="https://images.pexels.com/photos/1076758/pexels-photo-1076758.jpeg" alt="" style="width:10px;height:10px; transform: translateY(20px);">
     -->
         </div>
