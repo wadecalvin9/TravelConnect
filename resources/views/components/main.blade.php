@@ -99,10 +99,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mx-auto position-relative" id="navLinks">
+         <li class="nav-item"><a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">Home</a></li>
           <li class="nav-item"><a class="nav-link {{ request()->is('destinations') ? 'active' : '' }}" href="/destinations">Destinations</a></li>
           <li class="nav-item"><a class="nav-link {{ request()->is('tours') ? 'active' : '' }}" href="/tours">Tours</a></li>
           <li class="nav-item"><a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="/about">About</a></li>
-          <li class="nav-item"><a class="nav-link {{ request()->is('blog') ? 'active' : '' }}" href="/blog">Blog</a></li>
           <li class="nav-item"><a class="nav-link {{ request()->is('contact') ? 'active' : '' }}" href="/contact">Contact</a></li>
           <div class="nav-underline"></div>
         </ul>

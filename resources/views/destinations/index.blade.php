@@ -1,6 +1,5 @@
 <x-main>
     <title>Tours</title>
-
     <!-- Hero Section -->
     <section class="destinations hero d-flex align-items-center justify-content-center text-center text-white"
              style="background-image: url('https://images.pexels.com/photos/462162/pexels-photo-462162.jpeg');

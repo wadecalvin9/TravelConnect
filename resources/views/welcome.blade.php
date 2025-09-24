@@ -23,7 +23,7 @@
                 @foreach ($destinations as $key => $destination)
                     <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
                         <div class="position-relative"
-                             style="height: 60vh; min-height: 300px; max-height: 500px; background: url('{{ $destination->image }}') center/cover no-repeat;">
+                             style="height: 100vh; min-height: 300px; max-height: 500px; background: url('{{ $destination->image }}') center/cover no-repeat;">
                             <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column justify-content-center align-items-center text-white px-3">
                                 <h3 class="fw-bold mb-2" style="font-size: clamp(1.5rem, 4vw, 2.5rem);">{{ $destination->name }}</h3>
                                 <p class="text-center mb-3" style="max-width: 90%; font-size: clamp(0.9rem, 2.5vw, 1.2rem);">
