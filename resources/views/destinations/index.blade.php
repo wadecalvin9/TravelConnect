@@ -1,6 +1,5 @@
 <x-main>
     <title>Tours</title>
-    <livewire:header2/>
 
     <!-- Hero Section -->
     <section class="destinations hero d-flex align-items-center justify-content-center text-center text-white"

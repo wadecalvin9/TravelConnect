@@ -2,44 +2,48 @@
     <title>Home</title>
 
     <!-- Hero Section -->
-    <section class="hero d-flex align-items-center justify-content-center text-center text-white"
-             style="background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('{{ $settings->hero_image }}') center/cover no-repeat;
-                    height: 100vh; position: relative;">
-        <div class="container position-relative z-2">
-            <h1 class="display-3 fw-bold mb-3">{{ $settings->hero_title }}</h1>
-            <p class="lead mb-4">{{ $settings->hero_description }}</p>
-            <a href="/tours" class="btn btn-glass btn-lg rounded-pill hover-elevate">Book Tour Now</a>
-        </div>
-    </section>
+  <!-- Hero Section -->
+<section class="hero d-flex align-items-center justify-content-center text-center text-white"
+         style="background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('{{ $settings->hero_image }}') center/cover no-repeat;
+                height: 100vh; min-height: 500px; max-height: 800px; position: relative;">
+    <div class="container position-relative z-2 px-3">
+        <h1 class="display-3 fw-bold mb-3" style="font-size: clamp(2rem, 6vw, 4rem);">{{ $settings->hero_title }}</h1>
+        <p class="lead mb-4" style="font-size: clamp(1rem, 3vw, 1.5rem);">{{ $settings->hero_description }}</p>
+        <a href="/tours" class="btn btn-glass btn-lg rounded-pill hover-elevate">Book Tour Now</a>
+    </div>
+</section>
 
-    <!-- Popular Destinations Carousel -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center fw-bold mb-5">Top Destinations</h2>
+<!-- Popular Destinations Carousel -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5">Top Destinations</h2>
 
-            <div id="destinationsCarousel" class="carousel slide rounded-4 shadow-lg overflow-hidden" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @foreach ($destinations as $key => $destination)
-                        <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
-                            <div class="position-relative" style="height: 500px; background: url('{{ $destination->image }}') center/cover no-repeat;">
-                                <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column justify-content-center align-items-center text-white px-4">
-                                    <h3 class="display-5 fw-bold">{{ $destination->name }}</h3>
-                                    <p class="lead text-center mb-4" style="max-width: 700px;">{{ Str::limit($destination->description, 150) }}</p>
-                                    <a href="{{ route('destinations.show', $destination->id) }}" class="btn btn-glass btn-lg rounded-pill hover-elevate">Explore Now</a>
-                                </div>
+        <div id="destinationsCarousel" class="carousel slide rounded-4 shadow-lg overflow-hidden" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @foreach ($destinations as $key => $destination)
+                    <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                        <div class="position-relative"
+                             style="height: 60vh; min-height: 300px; max-height: 500px; background: url('{{ $destination->image }}') center/cover no-repeat;">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column justify-content-center align-items-center text-white px-3">
+                                <h3 class="fw-bold mb-2" style="font-size: clamp(1.5rem, 4vw, 2.5rem);">{{ $destination->name }}</h3>
+                                <p class="text-center mb-3" style="max-width: 90%; font-size: clamp(0.9rem, 2.5vw, 1.2rem);">
+                                    {{ Str::limit($destination->description, 150) }}
+                                </p>
+                                <a href="{{ route('destinations.show', $destination->id) }}" class="btn btn-glass btn-lg rounded-pill hover-elevate">Explore Now</a>
                             </div>
                         </div>
-                    @endforeach
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#destinationsCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon bg-dark rounded-circle p-2"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#destinationsCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon bg-dark rounded-circle p-2"></span>
-                </button>
+                    </div>
+                @endforeach
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#destinationsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon bg-dark rounded-circle p-2"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#destinationsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon bg-dark rounded-circle p-2"></span>
+            </button>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Popular Tours -->
     <section class="py-5">

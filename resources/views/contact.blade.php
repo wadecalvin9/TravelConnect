@@ -98,7 +98,13 @@
         </div>
     </section>
 
+
     <style>
+        body{
+            padding-top: 20px
+        }
+
+
         .glass-card-light {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);

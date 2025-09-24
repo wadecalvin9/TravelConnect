@@ -74,6 +74,14 @@
 </section>
 
 <style>
+
+    body {
+    font-family: 'Poppins', sans-serif;
+    background: #f0f4f8;
+    padding-top:10px;
+  }
+
+
   /* Glass card style */
   .glass-card {
     background: rgba(255, 255, 255, 0.05);
