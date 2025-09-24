@@ -7,6 +7,7 @@ use App\Http\Controllers\inquiryController;
 use App\Models\Tour;
 use App\Models\Config;
 use App\Models\Team;
+use App\Models\destination;
 
 Route::get('/', function(){
     return view('welcome');
@@ -17,6 +18,14 @@ Route::get('/' ,[DisplayController::class, 'index']);
 //destinations
 
 Route::get("/destinations",[DisplayController::class, 'getalldestinations',]);
+
+Route::get('/destinations/{id}', function ($id) {
+    $destination = destination::findOrFail($id);
+    return view('destinations.show', ['destination' => $destination]);
+})->name('destinations.show');
+
+
+
 
 
 //tours

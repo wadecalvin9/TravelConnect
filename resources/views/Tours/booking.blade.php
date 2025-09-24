@@ -1,6 +1,5 @@
 <x-main>
 <title>Book Tour</title>
-<livewire:header2/>
 
 <section class="py-5" style="background: #f8f9fa;">
   <div class="container">

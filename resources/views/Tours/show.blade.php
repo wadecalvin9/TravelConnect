@@ -1,27 +1,45 @@
 <x-main>
     <title>Book Tour</title>
-    <livewire:header2 />
 
-    <section class="py-5" style="background: #f8f9fa;">
+    <section class="py-5" style="background: linear-gradient(to right, #f0f4f8, #e4ebf5);">
+
         <div class="container">
 
-            <!-- Tour Card -->
-            <div class="card border-0 shadow-lg mb-5 rounded-4 overflow-hidden">
+            <!-- Tour Card with breathing space -->
+            <div class="card tour-glass border-0 shadow-lg mb-5 rounded-4 overflow-hidden mt-5">
                 @if (!empty($tour->image))
                     <img src="{{ $tour->image }}" class="card-img-top" alt="Tour Image"
-                        style="height: 350px; object-fit: cover; width: 100%;">
+                        style="height: 350px; object-fit: cover; width: 100%; transition: transform 0.4s ease;">
                 @endif
-                <div class="card-body text-center bg-white bg-opacity-90">
+                <div class="card-body text-center bg-white bg-opacity-50 backdrop-blur rounded-bottom-4">
                     <h2 class="card-title fw-bold mb-3">{{ $tour->name }}</h2>
                     <p class="card-text text-muted">{{ $tour->description }}</p>
                 </div>
             </div>
 
+            <!-- Gallery -->
+            @if (!empty($tour->images) && is_array($tour->images))
+                <h4 class="mt-5 mb-3 fw-bold text-primary">Gallery</h4>
+                <div class="row g-3 mb-5 gallery-section">
+                    @foreach ($tour->images as $index => $img)
+                        @if (!empty($img['image']))
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="card rounded-3 shadow-sm gallery-image overflow-hidden">
+                                    <img src="{{ $img['image'] }}" alt="Tour Image"
+                                        class="card-img-top img-fluid uniform-img" data-bs-toggle="modal"
+                                        data-bs-target="#galleryModal" data-bs-img="{{ $img['image'] }}">
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            @endif
+
             <div class="row g-4">
 
                 <!-- Itinerary -->
                 <div class="col-12 col-lg-6">
-                    <div class="card rounded-4 shadow-lg p-4 bg-white bg-opacity-90 border-0 h-100 d-flex flex-column">
+                    <div class="card tour-glass rounded-4 shadow-lg p-4 border-0 h-100 d-flex flex-column">
                         <h4 class="mb-3 fw-bold text-primary">Itinerary</h4>
                         @if (!empty($tour->itenary) && is_array($tour->itenary))
                             <div class="accordion" id="itenaryAccordion" style="max-height: 400px; overflow-y: auto;">
@@ -37,7 +55,7 @@
                                         <div id="collapse{{ $index }}" class="accordion-collapse collapse"
                                             aria-labelledby="heading{{ $index }}"
                                             data-bs-parent="#itenaryAccordion">
-                                            <div class="accordion-body">
+                                            <div class="accordion-body text-muted">
                                                 {{ $day['Activity'] ?? 'N/A' }}
                                             </div>
                                         </div>
@@ -52,12 +70,12 @@
 
                 <!-- Inquiry Form -->
                 <div class="col-12 col-lg-6">
-                    <div class="card rounded-4 shadow-lg p-4 bg-white bg-opacity-90 border-0 h-100">
+                    <div class="card tour-glass rounded-4 shadow-lg p-4 border-0 h-100">
                         <h3 class="mb-4 fw-bold text-primary">Send an Inquiry</h3>
 
                         <!-- Flash Message -->
                         @if (session('success'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
                                 {{ session('success') }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
@@ -71,8 +89,6 @@
                             @if (auth()->check())
                                 <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                             @endif
-
-
 
                             <div class="mb-3">
                                 <label for="fullname" class="form-label">Full Name</label>
@@ -104,31 +120,14 @@
                                 <textarea class="form-control rounded-3" id="message" name="message" rows="4"
                                     placeholder="Any questions or details"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100 rounded-pill shadow-sm">Send
-                                Inquiry</button>
+                            <button type="submit" class="btn btn-gradient-primary w-100 rounded-pill shadow-sm">
+                                Send Inquiry
+                            </button>
                         </form>
                     </div>
                 </div>
 
             </div>
-
-            <!-- Gallery -->
-            @if (!empty($tour->images) && is_array($tour->images))
-                <h4 class="mt-5 mb-3 fw-bold text-primary">Gallery</h4>
-                <div class="row g-3">
-                    @foreach ($tour->images as $index => $img)
-                        @if (!empty($img['image']))
-                            <div class="col-6 col-md-4 col-lg-3">
-                                <div class="card rounded-3 shadow-sm gallery-image">
-                                    <img src="{{ $img['image'] }}" alt="Tour Image"
-                                        class="card-img-top img-fluid uniform-img" data-bs-toggle="modal"
-                                        data-bs-target="#galleryModal" data-bs-img="{{ $img['image'] }}">
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
-                </div>
-            @endif
 
         </div>
     </section>
@@ -146,36 +145,48 @@
 
     <style>
         body {
-            background: #f8f9fa;
+            background: #e9f0f8;
             font-family: 'Poppins', sans-serif;
         }
 
-        .card {
-            backdrop-filter: blur(10px);
+        /* Glass Cards */
+        .tour-glass {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+        .tour-glass:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 28px rgba(0, 0, 0, 0.25);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Buttons */
+        .btn-gradient-primary {
+            background: linear-gradient(135deg, #0062E6, #33AEFF);
+            border: none;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        .btn-gradient-primary:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #33AEFF, #0062E6);
         }
 
         .form-control:focus {
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #0062E6, #33AEFF);
-            border: none;
-            transition: 0.3s;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-        }
-
+        /* Gallery */
         .uniform-img {
             height: 200px;
             object-fit: cover;
             width: 100%;
+            transition: transform 0.3s ease;
         }
-
-        .gallery-image {
-            cursor: pointer;
+        .gallery-image:hover img {
+            transform: scale(1.05);
         }
 
         .modal-img {
@@ -184,14 +195,12 @@
             object-fit: contain;
         }
 
-        @media (max-width: 991px) {
-            .card-img-top {
-                height: 250px !important;
-            }
+        .accordion-button {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
         }
-
-        .accordion-body {
-            padding: 0.75rem 1rem;
+        .accordion-button:not(.collapsed) {
+            background: rgba(255, 255, 255, 0.25);
         }
     </style>
 

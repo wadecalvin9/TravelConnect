@@ -1,68 +1,167 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TravelConnect</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ $settings->site_name ?? 'TravelConnect' }}</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* 🔹 Glass Navbar - dark by default */
+    .glass-nav {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(15px) saturate(150%);
+      -webkit-backdrop-filter: blur(15px) saturate(150%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      transition: background 0.4s ease;
+    }
+
+    /* 🔹 Darker tint when scrolling */
+    .glass-nav.scrolled {
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+    /* Brand */
+    .glass-nav .navbar-brand {
+      color: #fff !important;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* Nav links */
+    .glass-nav .nav-link {
+      color: #ffffffcc !important;
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .glass-nav .nav-link:hover,
+    .glass-nav .nav-link.active {
+      color: #0dcaf0 !important;
+    }
+
+    /* 🔹 Sliding underline element */
+    .nav-underline {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      width: 0;
+      background: #0dcaf0;
+      transition: all 0.3s ease;
+    }
+
+    /* Buttons */
+    .glass-nav .btn {
+      transition: all 0.3s ease;
+    }
+
+    .glass-nav .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Fix mobile navbar collapse for underline */
+    @media (max-width: 991px) {
+      #navLinks {
+        position: relative;
+      }
+      .nav-underline {
+        display: none; /* optional: hide underline on small screens */
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- ✅ Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top glass-nav">
+    <div class="container position-relative">
+      <a class="navbar-brand" href="/">TravelConnect</a>
 
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    {{ $slot }}
-
-
-
-      <!--Footer-->
-
-    <footer class="bg-dark text-white pt-5 pb-3 mt-5">
-  <div class="container">
-    <div class="row">
-
-      <!-- About -->
-      <div class="col-md-4">
-        <h5>About Us</h5>
-        <p>
-          We provide the best travel experiences across the world.
-          Explore with us and create unforgettable memories.
-        </p>
-      </div>
-
-      <!-- Quick Links -->
-      <div class="col-md-4">
-        <h5>Quick Links</h5>
-        <ul class="list-unstyled">
-          <li><a href="#" class="text-white text-decoration-none">Home</a></li>
-          <li><a href="/destinations" class="text-white text-decoration-none">Destinations</a></li>
-          <li><a href="/tours" class="text-white text-decoration-none">Tours</a></li>
-          <li><a href="/contact" class="text-white text-decoration-none">Contact</a></li>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Centered items -->
+        <ul class="navbar-nav mx-auto position-relative" id="navLinks">
+          <li class="nav-item"><a class="nav-link {{ request()->is('destinations') ? 'active' : '' }}" href="/destinations">Destinations</a></li>
+          <li class="nav-item"><a class="nav-link {{ request()->is('tours') ? 'active' : '' }}" href="/tours">Tours</a></li>
+          <li class="nav-item"><a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="/about">About</a></li>
+          <li class="nav-item"><a class="nav-link {{ request()->is('blog') ? 'active' : '' }}" href="/blog">Blog</a></li>
+          <li class="nav-item"><a class="nav-link {{ request()->is('contact') ? 'active' : '' }}" href="/contact">Contact</a></li>
+          <div class="nav-underline"></div>
         </ul>
-      </div>
 
-      <!-- Contact Info -->
-      <div class="col-md-4">
-        <h5>Contact Us</h5>
-        <p>Email: Cyrilbill@gmail.com</p>
-        <p>Phone: +254 794 865 939</p>
-        <p>Location: Nairobi, Kenya</p>
+        <!-- Right side buttons -->
+        <div class="d-flex">
+          @auth
+            @if (auth()->user()->hasRole('super_admin'))
+              <a href="{{ url('/admin') }}" class="btn btn-light me-2 rounded-pill">Dashboard</a>
+            @else
+              <a href="{{ url('/user') }}" class="btn btn-light me-2 rounded-pill">Dashboard</a>
+            @endif
+          @endauth
+          @guest
+            <a href="/user" class="btn btn-outline-light rounded-pill">Sign In</a>
+          @endguest
+        </div>
       </div>
     </div>
+  </nav>
 
-    <hr class="bg-light">
+  <!-- ✅ Page Content -->
+  <main>
+    {{ $slot ?? '' }}
+  </main>
 
-    <!-- Copyright -->
-    <div class="text-center">
-      <p class="mb-0">&copy; Travel Connect. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-    </script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- ✅ Scroll + Sliding Underline JS -->
+  <script>
+    // Scroll effect works on all pages including mobile
+    window.addEventListener("scroll", function () {
+      const nav = document.querySelector(".glass-nav");
+      if (window.scrollY > 50) {
+        nav.classList.add("scrolled");
+      } else {
+        nav.classList.remove("scrolled");
+      }
+    });
+
+    // Sliding underline for desktop
+    const navLinks = document.querySelectorAll("#navLinks .nav-link");
+    const underline = document.querySelector(".nav-underline");
+    const activeLink = document.querySelector("#navLinks .nav-link.active");
+
+    function moveUnderline(element) {
+      if (!element) return;
+      const { offsetLeft, offsetWidth } = element;
+      underline.style.left = offsetLeft + "px";
+      underline.style.width = offsetWidth + "px";
+    }
+
+    // Hover effect (desktop only)
+    navLinks.forEach(link => {
+      link.addEventListener("mouseenter", (e) => moveUnderline(e.target));
+    });
+
+    // Reset to active when leaving nav
+    document.querySelector("#navLinks").addEventListener("mouseleave", () => {
+      moveUnderline(activeLink);
+    });
+
+    // Initialize underline on page load
+    window.addEventListener("load", () => {
+      moveUnderline(activeLink);
+    });
+  </script>
 </body>
-
 </html>
-

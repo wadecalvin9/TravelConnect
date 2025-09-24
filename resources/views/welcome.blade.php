@@ -1,83 +1,69 @@
 <x-main>
-    <livewire:header />
     <!-- Hero Section -->
     <section class="hero d-flex align-items-center justify-content-center text-center text-white"
-        style="background-image: url('{{ $settings->hero_image }}');
-                width:100%;height:100vh;
-                background-size:cover;
-                background-position:center;
-                background-repeat:no-repeat;
-                position:relative;">
-
-        <!-- Overlay (optional) -->
-        <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);"></div>
-
-        <!-- Content -->
-        <div style="position:relative;z-index:2;">
-            <h1 class="display-3 fw-bold">{{ $settings->hero_title }}</h1>
-            <p class="lead">{{ $settings->hero_description }}.</p>
-            <a href="/tours" class="btn btn-outline-light btn-lg mt-3">Book Tour Now</a><br>
-            <!-- <img src="https://images.pexels.com/photos/1076758/pexels-photo-1076758.jpeg" alt="" style="width:10px;height:10px; transform: translateY(20px);">
-    -->
+        style="background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('{{ $settings->hero_image }}') center/cover no-repeat;
+               width:100%; height:100vh; position:relative;">
+        <div class="container position-relative z-2">
+            <h1 class="display-3 fw-bold mb-3">{{ $settings->hero_title }}</h1>
+            <p class="lead text-light mb-4">{{ $settings->hero_description }}</p>
+            <a href="/tours" class="btn btn-light btn-lg rounded-pill shadow-sm px-4 py-2 hover-elevate">
+                Book Tour Now
+            </a>
         </div>
     </section>
 
-
-
-
-
-    <!-- Popular Destinations Carousel -->
-    <section class="py-5">
+    <!-- Popular Destinations -->
+    <section class="py-5 bg-light">
         <div class="container">
-            <h1 class="mb-3 text-center fw-bold">Popular Destinations</h1>
-            <p class="mb-5 text-center text-muted">Explore our top destinations from our clients reviews</p>
+            <h2 class="text-center mb-5 fw-bold">Top Destinations</h2>
+
             <div id="destinationsCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @foreach ($destinations as $index => $destination)
-                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                            <div class="card border-0 shadow-lg rounded-3 overflow-hidden glass-card">
-                                <img src="{{ $destination->image }}" class="card-img fixed-img"
-                                    alt="{{ $destination->name }}">
-                                <div
-                                    class="card-img-overlay d-flex flex-column justify-content-end p-4 overlay-gradient">
-                                    <h3 class="card-title fw-bold">{{ $destination->name }}</h3>
-                                    <p class="card-text">{{ $destination->description }}</p>
-                                    <a href="#" class="btn btn-light btn-lg rounded-pill mt-2 w-50">Explore</a>
+                <div class="carousel-inner rounded-4 shadow-lg overflow-hidden">
+                    @foreach ($destinations as $key => $destination)
+                        <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                            <div class="position-relative" style="height: 500px; background: url('{{ $destination->image}}') center/cover no-repeat;">
+                                <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column justify-content-center align-items-center text-white px-4">
+                                    <h3 class="display-5 fw-bold">{{ $destination->name }}</h3>
+                                    <p class="lead mb-4 text-center" style="max-width: 700px;">
+                                        {{ Str::limit($destination->description, 150) }}
+                                    </p>
+                                    <a href="" class="btn btn-light btn-lg rounded-pill shadow-sm">
+                                        Explore Now
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#destinationsCarousel"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
+
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#destinationsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark rounded-circle p-2"></span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#destinationsCarousel"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
+                <button class="carousel-control-next" type="button" data-bs-target="#destinationsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-dark rounded-circle p-2"></span>
                 </button>
             </div>
         </div>
     </section>
 
     <!-- Popular Tours -->
-    <section class="py-5">
+    <section class="py-5 bg-light">
         <div class="container">
-            <h2 class="mb-3 text-center">Popular Tours</h2>
-            <p class="text-muted text-center mb-4">Explore our top tours from our clients reviews</p>
+            <h2 class="fw-bold text-center mb-3">Popular Tours</h2>
+            <p class="text-muted text-center mb-5">Carefully curated tours with amazing experiences</p>
 
             <div class="scrollable-wrapper">
                 @foreach ($tours as $tour)
                     @if ($tour->popular)
-                        <div class="card glass-card tour-card">
-                            <img src="{{ $tour->image }}" class="card-img-top card-img-fixed"
+                        <div class="card shadow-sm rounded-4 tour-card hover-elevate">
+                            <img src="{{ $tour->image }}" class="card-img-top rounded-top-4 card-img-fixed"
                                 alt="{{ $tour->name }}">
-                            <div class="card-body text-center d-flex flex-column">
-                                <h5 class="card-title">{{ $tour->name }}</h5>
-                                <p class="card-text flex-grow-1">
-                                    {{ \Illuminate\Support\Str::limit($tour->description, 100) }}</p>
+                            <div class="card-body text-center">
+                                <h5 class="fw-bold">{{ $tour->name }}</h5>
+                                <p class="text-muted">{{ \Illuminate\Support\Str::limit($tour->description, 80) }}</p>
                                 <a href="{{ route('tours.show', $tour->id) }}"
-                                    class="btn btn-sm btn-primary mt-auto">Book Now</a>
+                                    class="btn btn-primary btn-sm rounded-pill mt-2">Book Now</a>
                             </div>
                         </div>
                     @endif
@@ -87,28 +73,24 @@
     </section>
 
     <!-- Special Packages -->
-    <section class="py-5 bg-light">
-        <div class="container text-center">
-            <h2 class="mb-3">Special Packages</h2>
-            <p class="text-muted mb-5">Exclusive offers curated just for you</p>
+    <section class="py-5">
+        <div class="container">
+            <h2 class="fw-bold text-center mb-3">Special Packages</h2>
+            <p class="text-muted text-center mb-5">Exclusive offers designed for your perfect journey</p>
 
             <div class="scrollable-wrapper">
                 @foreach ($tours as $tour)
                     @if ($tour->special)
-                        <div class="card glass-card package-card">
-                            <img src="{{ $tour->image }}" class="card-img-top card-img-fixed"
+                        <div class="card shadow-sm rounded-4 package-card hover-elevate">
+                            <img src="{{ $tour->image }}" class="card-img-top rounded-top-4 card-img-fixed"
                                 alt="{{ $tour->name }}">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ $tour->name }}</h5>
-                                <p class="card-text flex-grow-1">
-                                    {{ \Illuminate\Support\Str::limit($tour->description, 100) }}</p>
-                                <h6 class="fw-bold text-primary mt-auto">
-                                    {{ $tour->price }} <small class="text-muted">/person</small>
-                                </h6>
-                            </div>
-                            <div class="card-footer bg-transparent border-0">
-                                <a href="{{ route('tours.show', $tour->id) }}" class="btn btn-primary w-100">Book
-                                    Now</a>
+                            <div class="card-body text-center">
+                                <h5 class="fw-bold">{{ $tour->name }}</h5>
+                                <p class="text-muted">{{ \Illuminate\Support\Str::limit($tour->description, 80) }}</p>
+                                <h6 class="fw-bold text-primary">{{ $tour->price }} <small
+                                        class="text-muted">/person</small></h6>
+                                <a href="{{ route('tours.show', $tour->id) }}"
+                                    class="btn btn-primary btn-sm rounded-pill mt-2 w-100">Book Now</a>
                             </div>
                         </div>
                     @endif
@@ -118,39 +100,35 @@
     </section>
 
     <!-- Video Section -->
-    <section class="py-5">
+    <section class="py-5 bg-light">
         <div class="container text-center">
-            <h2 class="mb-4">Experience the Journey</h2>
-            <div class="ratio ratio-16x9 shadow-lg rounded overflow-hidden mx-auto" style="max-width: 900px;">
-                <iframe src="https://www.youtube.com/embed/sPb_rA1bIUk?rel=0&mute=1" title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen>
-                </iframe>
+            <h2 class="fw-bold mb-4">Experience the Journey</h2>
+            <div class="ratio ratio-16x9 rounded-4 shadow-sm overflow-hidden mx-auto" style="max-width: 900px;">
+                <iframe src="https://www.youtube.com/embed/sPb_rA1bIUk?rel=0&mute=1"
+                    title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media"
+                    allowfullscreen></iframe>
             </div>
         </div>
     </section>
 
     <!-- Testimonials -->
-    <section class="py-5 bg-light">
+    <section class="py-5">
         <div class="container text-center">
-            <h2 class="mb-3">What Our Clients Say</h2>
+            <h2 class="fw-bold mb-3">What Our Clients Say</h2>
             <p class="text-muted mb-5">Real experiences from happy travelers</p>
 
             <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     @foreach ($reviews as $index => $review)
                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                            <div class="card glass-card border-0 shadow-sm mx-auto" style="max-width: 600px;">
-                                <div class="card-body">
-                                    <p class="card-text fst-italic">"{{ $review->comment }}"</p>
-                                    <div class="d-flex align-items-center justify-content-center mt-4">
-                                        <img src="https://cdn-icons-png.flaticon.com/128/1144/1144709.png"
-                                            class="rounded-circle me-3" alt="Client" width="60" height="60">
-                                        <div class="text-start">
-                                            <h6 class="mb-0 fw-bold">{{ $review->name }}</h6>
-                                            <small class="text-muted">From {{ $review->country }}</small>
-                                        </div>
+                            <div class="card border-0 shadow-sm rounded-4 mx-auto p-4" style="max-width: 600px;">
+                                <p class="fst-italic">“{{ $review->comment }}”</p>
+                                <div class="d-flex align-items-center justify-content-center mt-3">
+                                    <img src="https://cdn-icons-png.flaticon.com/128/1144/1144709.png"
+                                        class="rounded-circle me-3 shadow-sm" width="60" height="60" alt="Client">
+                                    <div class="text-start">
+                                        <h6 class="fw-bold mb-0">{{ $review->name }}</h6>
+                                        <small class="text-muted">From {{ $review->country }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -171,78 +149,57 @@
         </div>
     </section>
 
-
     <!-- Motto & Achievements -->
     <section class="py-5 bg-light">
         <div class="container text-center">
-            <h2 class="fw-bold mb-3">"Travel. Explore. Discover."</h2>
+            <h2 class="fw-bold mb-3">“Travel. Explore. Discover.”</h2>
             <p class="text-muted mb-5">We create unforgettable experiences for every traveler.</p>
 
-            <div class="row g-4 justify-content-center">
+            <div class="row g-4">
                 <div class="col-6 col-md-3">
-                    <div class="card glass-card border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <h3 class="fw-bold text-primary">10K+</h3>
-                            <p class="mb-0 text-muted">Happy Travelers</p>
-                        </div>
+                    <div class="stat-card">
+                        <h3 class="fw-bold text-primary">10K+</h3>
+                        <p class="text-muted mb-0">Happy Travelers</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
-                    <div class="card glass-card border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <h3 class="fw-bold text-primary">50+</h3>
-                            <p class="mb-0 text-muted">Destinations Worldwide</p>
-                        </div>
+                    <div class="stat-card">
+                        <h3 class="fw-bold text-primary">50+</h3>
+                        <p class="text-muted mb-0">Destinations</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
-                    <div class="card glass-card border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <h3 class="fw-bold text-primary">500+</h3>
-                            <p class="mb-0 text-muted">Tours Completed</p>
-                        </div>
+                    <div class="stat-card">
+                        <h3 class="fw-bold text-primary">500+</h3>
+                        <p class="text-muted mb-0">Tours Completed</p>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
-                    <div class="card glass-card border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <h3 class="fw-bold text-primary">98%</h3>
-                            <p class="mb-0 text-muted">Client Satisfaction</p>
-                        </div>
+                    <div class="stat-card">
+                        <h3 class="fw-bold text-primary">98%</h3>
+                        <p class="text-muted mb-0">Client Satisfaction</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Styles -->
+    <!-- Minimalistic Google-Style CSS with Glassmorphism -->
     <style>
-        .glass-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 1rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .glass-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: aliceblue;
         }
 
         .fixed-img {
-            height: 450px;
+            height: 260px;
             object-fit: cover;
-        }
-
-        .overlay-gradient {
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-            color: #fff;
         }
 
         .scrollable-wrapper {
             display: flex;
-            overflow-x: auto;
             gap: 1rem;
+            overflow-x: auto;
             padding-bottom: 1rem;
             scroll-behavior: smooth;
         }
@@ -252,11 +209,51 @@
             min-width: 260px;
             max-width: 280px;
             flex: 0 0 auto;
+            border: none;
+            overflow: hidden;
+            position: relative;
+            background: transparent;
         }
 
-        .card-img-fixed {
+        /* Glassmorphism effect for card body */
+        .tour-card .card-body,
+        .package-card .card-body {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: -5px;
+            transition: all 0.3s ease;
+        }
+
+        .tour-card .card-body:hover,
+        .package-card .card-body:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .tour-card img,
+        .package-card img {
             height: 180px;
             object-fit: cover;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+
+        .hover-elevate {
+            transition: all 0.3s ease;
+        }
+
+        .hover-elevate:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .stat-card {
+            background: #fff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         }
     </style>
 </x-main>
