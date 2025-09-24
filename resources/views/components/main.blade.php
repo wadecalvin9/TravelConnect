@@ -10,8 +10,19 @@
 
   <style>
     /* 🔹 Glass Navbar - dark by default */
+
+    /* Light hamburger button for dark glass navbar */
+  .navbar-toggler {
+    border-color: rgba(255,255,255,0.7); /* optional: light border */
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  }
+
+
     .glass-nav {
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.565);
       backdrop-filter: blur(15px) saturate(150%);
       -webkit-backdrop-filter: blur(15px) saturate(150%);
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
@@ -42,7 +53,7 @@
 
     .glass-nav .nav-link:hover,
     .glass-nav .nav-link.active {
-      color: #0dcaf0 !important;
+      color: #0d51f0 !important;
     }
 
     /* 🔹 Sliding underline element */
@@ -52,7 +63,7 @@
       left: 0;
       height: 2px;
       width: 0;
-      background: #0dcaf0;
+      background: #929393c7;
       transition: all 0.3s ease;
     }
 
@@ -83,7 +94,7 @@
     <div class="container position-relative">
       <a class="navbar-brand" href="/">TravelConnect</a>
 
-      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+      <button class="navbar-toggler border-0 shadow-none text-cyan-50" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
