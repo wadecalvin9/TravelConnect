@@ -7,6 +7,7 @@ use App\Filament\Resources\DestinationResource\RelationManagers;
 use App\Models\destination;
 use Dom\Text;
 use Filament\Forms;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,8 +17,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\Select;
 
-
+use function Laravel\Prompts\select;
 
 class DestinationResource extends Resource
 {
@@ -30,8 +32,15 @@ class DestinationResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->required(),
-                TextInput::make('description')->required(),
+                Textarea::make('description')->required(),
                 TextInput::make('image')->required(),
+                select::make('category')
+                    ->options([
+                        'Beach Safari' => 'Beach Safari',
+                        'Bush Safari' => 'Bush Safari',
+
+                    ])
+                    ->required(),
             ]);
     }
     public static function table(Table $table): Table
@@ -40,7 +49,8 @@ class DestinationResource extends Resource
             ->columns([
                 TextColumn::make('name')->sortable()->searchable(),
                 TextColumn::make('description'),
-                ImageColumn::make('image')
+                ImageColumn::make('image'),
+                TextColumn::make('category')->sortable()->searchable(),
 
             ])
             ->filters([

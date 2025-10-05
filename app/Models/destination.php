@@ -10,6 +10,7 @@ class destination extends Model
         'name',
         'description',
         'image',
+        'category',
     ];
 
     public function tours()

@@ -16,6 +16,7 @@ use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\Textarea;
 
 class TourResource extends Resource
 {
@@ -36,7 +37,7 @@ class TourResource extends Resource
                         TextInput::make('name')
                             ->label('Tour Name')
                             ->required(),
-                        TextInput::make('description')
+                        Textarea::make('description')
                             ->label('Description')
                             ->required(),
                         TextInput::make('image')
@@ -58,8 +59,8 @@ class TourResource extends Resource
                         Repeater::make('itenary')
                             ->label('Daily Schedule')
                             ->schema([
-                                TextInput::make('Day')->required(),
-                                TextInput::make('Activity')->required(),
+                                TextInput::make('Day'),
+                                TextInput::make('Activity')
                             ])
                             ->columns(2)
                             ->createItemButtonLabel('Add Day'),

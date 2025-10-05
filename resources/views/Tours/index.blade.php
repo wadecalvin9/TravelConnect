@@ -14,7 +14,7 @@
 
     <!-- Hero Section -->
     <section class="hero d-flex align-items-center justify-content-center text-center"
-        style="background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://images.pexels.com/photos/1722206/pexels-photo-1722206.jpeg') center/cover no-repeat; height: 50vh;">
+        style="background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://images.pexels.com/photos/33045/lion-wild-africa-african.jpg') center/cover no-repeat; height: 50vh;">
         <div class="text-white">
             <h1 class="display-4 fw-bold">Discover Our Premium Tours</h1>
             <p class="lead">Handpicked experiences for the discerning traveler</p>
@@ -56,7 +56,7 @@
                                 <img src="{{ $tour->image }}" class="card-img-top" alt="{{ $tour->name }}"
                                     style="height: 250px; object-fit: cover;">
                                 <div class="tour-price-badge">
-                                    <span class="fw-bold bg-primary text-white px-3 py-1 rounded-pill shadow-sm">${{ $tour->price ?? 'N/A' }}</span>
+                                    <span class="fw-bold bg-primary text-white px-3 py-1 rounded-pill shadow-sm">KSH {{ $tour->price ?? 'N/A' }}</span>
                                 </div>
                             </div>
                             <div class="card-body text-center">

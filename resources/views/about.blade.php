@@ -2,7 +2,7 @@
 
     <!-- About Us Hero -->
     <section class="hero-about d-flex align-items-center justify-content-center text-center text-white"
-        style="background-image: url('https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg');
+        style="background-image: url('https://images.pexels.com/photos/247376/pexels-photo-247376.jpeg');
                background-size: cover; background-position: center; height: 60vh; padding-top: 50px; position: relative;">
         <div class="overlay"
             style="background: rgba(0,0,0,0.5); width: 100%; height: 100%; position: absolute; top:0; left:0;"></div>

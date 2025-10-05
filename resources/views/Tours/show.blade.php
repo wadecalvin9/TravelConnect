@@ -1,7 +1,7 @@
 <x-main>
     <title>Book Tour</title>
 
-    <section class="py-5" style="background: linear-gradient(to right, #f0f4f8, #e4ebf5);">
+    <section class="py-3" style="background: linear-gradient(to right, #f0f4f8, #e4ebf5);">
 
         <div class="container">
 
@@ -9,7 +9,7 @@
             <div class="card tour-glass border-0 shadow-lg mb-5 rounded-4 overflow-hidden mt-5">
                 @if (!empty($tour->image))
                     <img src="{{ $tour->image }}" class="card-img-top" alt="Tour Image"
-                        style="height: 350px; object-fit: cover; width: 100%; transition: transform 0.4s ease;">
+                        style="height: 420px; object-fit: cover; width: 100%; transition: transform 0.4s ease;">
                 @endif
                 <div class="card-body text-center bg-white bg-opacity-50 backdrop-blur rounded-bottom-4">
                     <h2 class="card-title fw-bold mb-3">{{ $tour->name }}</h2>

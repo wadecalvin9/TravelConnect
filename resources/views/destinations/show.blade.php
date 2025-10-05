@@ -11,7 +11,7 @@
         <div class="overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4);"></div>
         <div class="position-relative">
             <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">{{ $destination->name }}</h1>
-            <p class="lead animate__animated animate__fadeInUp animate__delay-1s">{{ $destination->description }}</p>
+
         </div>
     </section>
 
@@ -114,6 +114,9 @@
     </div>
 
     <style>
+        body{
+            padding-top: 20px;
+        }
         .glass-card {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);

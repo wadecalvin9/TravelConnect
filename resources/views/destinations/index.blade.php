@@ -2,7 +2,7 @@
     <title>Tours</title>
     <!-- Hero Section -->
     <section class="destinations hero d-flex align-items-center justify-content-center text-center text-white"
-             style="background-image: url('https://images.pexels.com/photos/462162/pexels-photo-462162.jpeg');
+             style="background-image: url('https://images.pexels.com/photos/33997548/pexels-photo-33997548.jpeg');
                     background-size: cover;
                     background-position: center;
                     height: 60vh;
@@ -23,10 +23,17 @@
                 <h2 class="mb-3 fw-bold text-primary">Popular Destinations</h2>
                 <p class="text-muted">Explore the most loved destinations by our travelers</p>
             </div>
+            <!--BEACH SAFARIS-->
 
             <!-- Destinations Grid -->
+
+
             <div id="destinationsGrid" class="row g-4">
+                <h1 class="text-center mb-5 fw-bold text-secondary">BUSH SAFARIS</h1>
                 @foreach ($destinations as $destination)
+
+                    @if($destination->category == 'Bush Safari')
+
                     <div class="col-md-4 destination" data-country="france" data-price="luxury" data-duration="1week">
                         <div class="card glass-card shadow-lg h-100 border-0 hover-zoom">
                             <img src="{{ $destination->image }}"
@@ -35,15 +42,46 @@
                                  style="height:250px; object-fit:cover;">
                             <div class="card-body text-center">
                                 <h5 class="card-title fw-bold">{{ $destination->name }}</h5>
-                                <p class="card-text text-muted">{{ $destination->description }}</p>
+                                <p class="card-text text-muted">{{ substr($destination->description, 0, 100)}}</p>
                             </div>
                             <div class="card-footer bg-transparent border-0">
                                 <a href="{{ route('destinations.show', $destination->id) }}" class="btn btn-primary w-100 rounded-pill shadow-sm">Explore</a>
                             </div>
                         </div>
                     </div>
+                    @endif
                 @endforeach
+
+              <h1 class="text-center mb-5 fw-bold text-secondary">BEACH SAFARIS</h1>
+                @foreach ($destinations as $destination)
+
+                    @if($destination->category == 'Beach Safari')
+
+                    <div class="col-md-4 destination" data-country="france" data-price="luxury" data-duration="1week">
+                        <div class="card glass-card shadow-lg h-100 border-0 hover-zoom">
+                            <img src="{{ $destination->image }}"
+                                 class="card-img-top"
+                                 alt="{{ $destination->name }}"
+                                 style="height:250px; object-fit:cover;">
+                            <div class="card-body text-center">
+                                <h5 class="card-title fw-bold">{{ $destination->name }}</h5>
+                                <p class="card-text text-muted">{{ substr($destination->description, 0, 100)}}</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-0">
+                                <a href="{{ route('destinations.show', $destination->id) }}" class="btn btn-primary w-100 rounded-pill shadow-sm">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
+
+
+                @endforeach
+
+
             </div>
+
+
 
         </div>
     </section>
