@@ -23,6 +23,13 @@ class TourResource extends Resource
     protected static ?string $model = Tour::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-map-pin';
+    protected static ?string $navigationLabel = 'Hotel';
+    protected static ?string $pluralLabel = 'Hotels';
+    protected static ?string $modelLabel = 'Hotel';
+    protected static ?int $navigationSort = 2;
+
+
+
 
     public static function form(Form $form): Form
     {
@@ -53,19 +60,6 @@ class TourResource extends Resource
                             ->label('Popular Tour'),
                     ])
                     ->columns(2),
-
-                Forms\Components\Section::make('Itinerary')
-                    ->schema([
-                        Repeater::make('itenary')
-                            ->label('Daily Schedule')
-                            ->schema([
-                                TextInput::make('Day'),
-                                TextInput::make('Activity')
-                            ])
-                            ->columns(2)
-                            ->createItemButtonLabel('Add Day'),
-                    ]),
-
                 Forms\Components\Section::make('Gallery')
                     ->schema([
                         Repeater::make('images')
@@ -73,7 +67,7 @@ class TourResource extends Resource
                             ->schema([
                                 TextInput::make('image')
                                     ->label('Image URL')
-                                    ->required(),
+
                             ])
                             ->columns(1)
                             ->createItemButtonLabel('Add Image'),
@@ -109,6 +103,19 @@ class TourResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                 Tables\Actions\Action::make('duplicate')
+    ->label('Duplicate')
+    ->icon('heroicon-o-document-duplicate')
+    ->color('success')
+    ->requiresConfirmation()
+    ->action(function (Tour $record, Tables\Actions\Action $action) {
+        $new = $record->replicate();
+        $new->name = $record->name . ' (Copy)';
+        $new->save();
+
+        return redirect()->route('filament.admin.resources.tours.edit', $new);
+    })
+    ->successNotificationTitle('Hotel duplicated and opened for editing!')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

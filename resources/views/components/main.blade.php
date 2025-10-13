@@ -8,6 +8,7 @@
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
   <!-- Bootstrap Icons for footer social -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
@@ -101,7 +102,7 @@
         <ul class="navbar-nav mx-auto position-relative" id="navLinks">
          <li class="nav-item"><a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">Home</a></li>
           <li class="nav-item"><a class="nav-link {{ request()->is('destinations') ? 'active' : '' }}" href="/destinations">Destinations</a></li>
-          <li class="nav-item"><a class="nav-link {{ request()->is('tours') ? 'active' : '' }}" href="/tours">Tours</a></li>
+          <li class="nav-item"><a class="nav-link {{ request()->is('tours') ? 'active' : '' }}" href="/tours">Hotels</a></li>
           <li class="nav-item"><a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="/about">About</a></li>
           <li class="nav-item"><a class="nav-link {{ request()->is('contact') ? 'active' : '' }}" href="/contact">Contact</a></li>
           <div class="nav-underline"></div>
@@ -200,5 +201,7 @@
 
     window.addEventListener("load", () => moveUnderline(activeLink));
   </script>
+
+
 </body>
 </html>

@@ -11,10 +11,20 @@ class destination extends Model
         'description',
         'image',
         'category',
+        'itenerary',
+        'gallery',
     ];
 
     public function tours()
     {
         return $this->hasMany(Tour::class, 'destination_id');
+    }
+    protected $casts = [
+        'itenerary' => 'array',
+        'gallery' => 'array',
+    ];
+    public function ThingToDos()
+    {
+        return $this->hasMany(ThingToDo::class, 'destination_id');
     }
 }

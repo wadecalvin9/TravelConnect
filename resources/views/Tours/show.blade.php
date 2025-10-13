@@ -1,79 +1,64 @@
 <x-main>
     <title>Book Tour</title>
 
-    <section class="py-3" style="background: linear-gradient(to right, #f0f4f8, #e4ebf5);">
-
+    <section class="py-5" style="background: linear-gradient(to right, #eef3f9, #f8fbff);">
         <div class="container">
 
-            <!-- Tour Card with breathing space -->
-            <div class="card tour-glass border-0 shadow-lg mb-5 rounded-4 overflow-hidden mt-5">
-                @if (!empty($tour->image))
-                    <img src="{{ $tour->image }}" class="card-img-top" alt="Tour Image"
-                        style="height: 420px; object-fit: cover; width: 100%; transition: transform 0.4s ease;">
-                @endif
-                <div class="card-body text-center bg-white bg-opacity-50 backdrop-blur rounded-bottom-4">
-                    <h2 class="card-title fw-bold mb-3">{{ $tour->name }}</h2>
-                    <p class="card-text text-muted">{{ $tour->description }}</p>
-                </div>
-            </div>
+            <!-- Breadcrumb / Back -->
+            <nav aria-label="breadcrumb" class="mb-4" style="padding-top: 10px">
+                <ol class="breadcrumb bg-transparent p-0">
+                    <li class="breadcrumb-item">
+                        <a href="{{ url('/') }}" class="text-primary text-decoration-none">
+                            <i class="bi bi-house-door-fill"></i> Home
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active text-secondary" aria-current="page">{{ $tour->name }}</li>
+                </ol>
+            </nav>
 
-            <!-- Gallery -->
-            @if (!empty($tour->images) && is_array($tour->images))
-                <h4 class="mt-5 mb-3 fw-bold text-primary">Gallery</h4>
-                <div class="row g-3 mb-5 gallery-section">
-                    @foreach ($tour->images as $index => $img)
-                        @if (!empty($img['image']))
-                            <div class="col-6 col-md-4 col-lg-3">
-                                <div class="card rounded-3 shadow-sm gallery-image overflow-hidden">
-                                    <img src="{{ $img['image'] }}" alt="Tour Image"
-                                        class="card-img-top img-fluid uniform-img" data-bs-toggle="modal"
-                                        data-bs-target="#galleryModal" data-bs-img="{{ $img['image'] }}">
-                                </div>
-                            </div>
+            <!-- Tour Info + Inquiry Form -->
+            <div class="row g-4 align-items-start">
+                <!-- Left: Tour Info -->
+                <div class="col-lg-7">
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden tour-card">
+                        @if (!empty($tour->image))
+                            <img src="{{ $tour->image }}" class="card-img-top" alt="Tour Image"
+                                style="height: 400px; object-fit: cover;">
                         @endif
-                    @endforeach
-                </div>
-            @endif
 
-            <div class="row g-4">
+                        <div class="card-body bg-white rounded-bottom-4 p-4">
+                            <h2 class="card-title fw-bold mb-3 text-primary">
+                                <i class="bi bi-geo-alt-fill me-2 text-danger"></i>{{ $tour->name }}
+                            </h2>
 
-                <!-- Itinerary -->
-                <div class="col-12 col-lg-6">
-                    <div class="card tour-glass rounded-4 shadow-lg p-4 border-0 h-100 d-flex flex-column">
-                        <h4 class="mb-3 fw-bold text-primary">Itinerary</h4>
-                        @if (!empty($tour->itenary) && is_array($tour->itenary))
-                            <div class="accordion" id="itenaryAccordion" style="max-height: 400px; overflow-y: auto;">
-                                @foreach ($tour->itenary as $index => $day)
-                                    <div class="accordion-item mb-2">
-                                        <h2 class="accordion-header" id="heading{{ $index }}">
-                                            <button class="accordion-button collapsed" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#collapse{{ $index }}"
-                                                aria-expanded="false" aria-controls="collapse{{ $index }}">
-                                                {{ $day['Day'] ?? 'Day' }}
-                                            </button>
-                                        </h2>
-                                        <div id="collapse{{ $index }}" class="accordion-collapse collapse"
-                                            aria-labelledby="heading{{ $index }}"
-                                            data-bs-parent="#itenaryAccordion">
-                                            <div class="accordion-body text-muted">
-                                                {{ $day['Activity'] ?? 'N/A' }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
+                            <!-- Enhanced Description Box -->
+                            <div class="description-box p-3 rounded-4 mb-4">
+                                <p class="text-muted lh-lg mb-0">
+                                    {{ $tour->description ?? 'No description available for this tour yet.' }}
+                                </p>
                             </div>
-                        @else
-                            <p class="text-muted">Itinerary is not available.</p>
-                        @endif
+
+                            <!-- Optional Details -->
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge rounded-pill px-3 py-2"
+                                    style="background: linear-gradient(90deg,#e6f0ff,#d9f1ff); color:#0456d6;">
+                                    <i class="bi bi-clock me-1"></i> Duration: {{ $tour->duration ?? 'N/A' }}
+                                </span>
+                                <span class="badge bg-success rounded-pill px-3 py-2">
+                                    <span class="price-tag">{{ $tour->price ?? '—' }}</span>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Inquiry Form -->
-                <div class="col-12 col-lg-6">
-                    <div class="card tour-glass rounded-4 shadow-lg p-4 border-0 h-100">
-                        <h3 class="mb-4 fw-bold text-primary">Send an Inquiry</h3>
+                <!-- Right: Inquiry Form -->
+                <div class="col-lg-5">
+                    <div class="card border-0 rounded-4 shadow-lg p-4 inquiry-form">
+                        <h3 class="fw-bold text-primary text-center mb-4">
+                            <i class="bi bi-envelope-fill me-2"></i>Send an Inquiry
+                        </h3>
 
-                        <!-- Flash Message -->
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
                                 {{ session('success') }}
@@ -82,7 +67,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('inquiries.store') }}" method="POST">
+                        <form id="inquiryForm" action="{{ route('inquiries.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="tour_id" value="{{ $tour->id }}">
                             <input type="hidden" name="destination_id" value="{{ $tour->destination_id }}">
@@ -91,52 +76,102 @@
                             @endif
 
                             <div class="mb-3">
-                                <label for="fullname" class="form-label">Full Name</label>
-                                <input type="text" class="form-control rounded-pill" id="fullname" name="fullname"
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control rounded-pill" name="fullname"
                                     placeholder="John Doe" required>
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control rounded-pill" id="email" name="email"
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control rounded-pill" name="email"
                                     placeholder="john@example.com" required>
                             </div>
                             <div class="mb-3">
-                                <label for="phone" class="form-label">Phone Number</label>
-                                <input type="text" class="form-control rounded-pill" id="phone" name="phone"
+                                <label class="form-label">Phone Number</label>
+                                <input type="text" class="form-control rounded-pill" name="phone"
                                     placeholder="+1234567890" required>
                             </div>
                             <div class="mb-3">
-                                <label for="people" class="form-label">Number of People</label>
-                                <input type="number" class="form-control rounded-pill" id="people" name="people"
-                                    min="1" value="1" required>
+                                <label class="form-label">Number of People</label>
+                                <input type="number" class="form-control rounded-pill" name="people" min="1"
+                                    value="1" required>
                             </div>
                             <div class="mb-3">
-                                <label for="date" class="form-label">Preferred Date</label>
-                                <input type="date" class="form-control rounded-pill" id="date" name="date"
-                                    required>
+                                <label class="form-label">Preferred Date</label>
+                                <input type="date" class="form-control rounded-pill" name="date" required>
                             </div>
                             <div class="mb-3">
-                                <label for="message" class="form-label">Message (Optional)</label>
-                                <textarea class="form-control rounded-3" id="message" name="message" rows="4"
-                                    placeholder="Any questions or details"></textarea>
+                                <label class="form-label">Message (Optional)</label>
+                                <textarea class="form-control rounded-3" name="message" rows="3" placeholder="Any questions or details"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-gradient-primary w-100 rounded-pill shadow-sm">
+
+                            <button type="submit" id="sendBtn"
+                                class="btn btn-gradient-primary w-100 rounded-pill shadow-sm">
                                 Send Inquiry
                             </button>
                         </form>
                     </div>
                 </div>
-
             </div>
 
+            <!-- Horizontal Scrollable Gallery -->
+            @php
+                $images = $tour->images ?? [];
+            @endphp
+
+            @if (!empty($images) && is_iterable($images))
+                <h4 class="mt-5 mb-3 fw-bold text-primary text-center">Gallery</h4>
+                <div class="horizontal-gallery mb-5">
+                    @foreach ($images as $img)
+                        @php
+                            // support both: ['image' => 'url'] items or plain string items
+                            $imgSrc = is_array($img) ? $img['image'] ?? ($img['url'] ?? null) : $img;
+                        @endphp
+                        @if (!empty($imgSrc))
+                            <div class="gallery-item">
+                                <img src="{{ $imgSrc }}" class="gallery-img rounded-4 shadow-sm" alt="Tour Image"
+                                    data-bs-toggle="modal" data-bs-target="#galleryModal"
+                                    data-bs-img="{{ $imgSrc }}">
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            @endif
+
+            <!-- Things to Do -->
+            @php
+                $things = $tour->thingToDos ?? collect();
+            @endphp
+
+            @if (!empty($things) && $things->count())
+                <section class="mt-5 mb-5">
+                    <h4 class="fw-bold text-primary mb-4 text-center">Things to Do</h4>
+                    <div class="row g-4">
+                        @foreach ($things as $thing)
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm h-100 rounded-4">
+                                    <img src="{{ $thing->image ?? asset('images/placeholder.jpg') }}"
+                                        class="card-img-top rounded-top-4" alt="{{ $thing->title ?? 'Activity' }}"
+                                        style="height: 200px; object-fit: cover;">
+                                    <div class="card-body text-center">
+                                        <h5 class="fw-bold">{{ $thing->title ?? 'Untitled' }}</h5>
+                                        <p class="text-muted small mb-0">
+                                            {{ $thing->description ?? 'No description available.' }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </section>
+            @endif
         </div>
     </section>
 
-    <!-- Lightbox Modal -->
+    <!-- Modal for Gallery -->
     <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 bg-transparent">
-                <div class="modal-body p-0 d-flex justify-content-center align-items-center">
+                <div class="modal-body p-0 text-center">
                     <img src="" id="galleryModalImg" class="img-fluid rounded modal-img" alt="Tour Image">
                 </div>
             </div>
@@ -145,47 +180,63 @@
 
     <style>
         body {
-            background: #e9f0f8;
+            background: #f8fbff;
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Glass Cards */
-        .tour-glass {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            transition: all 0.3s ease;
-        }
-        .tour-glass:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 28px rgba(0, 0, 0, 0.25);
-            background: rgba(255, 255, 255, 0.25);
+        .description-box {
+            background: #f2f6fb;
+            border-left: 5px solid #007bff;
         }
 
-        /* Buttons */
+        .tour-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+
+        .inquiry-form {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(6px);
+        }
+
         .btn-gradient-primary {
             background: linear-gradient(135deg, #0062E6, #33AEFF);
             border: none;
             color: #fff;
-            transition: all 0.3s ease;
+            transition: 0.3s;
         }
+
         .btn-gradient-primary:hover {
-            transform: translateY(-2px);
             background: linear-gradient(135deg, #33AEFF, #0062E6);
+            transform: translateY(-2px);
         }
 
-        .form-control:focus {
-            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+        /* Horizontal Gallery */
+        .horizontal-gallery {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            padding-bottom: 0.5rem;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+            scrollbar-color: #33AEFF #eef3f9;
         }
 
-        /* Gallery */
-        .uniform-img {
-            height: 200px;
-            object-fit: cover;
+        .gallery-item {
+            flex: 0 0 auto;
+            width: 250px;
+            scroll-snap-align: start;
+        }
+
+        .gallery-img {
             width: 100%;
+            height: 180px;
+            object-fit: cover;
             transition: transform 0.3s ease;
+            cursor: pointer;
         }
-        .gallery-image:hover img {
+
+        .gallery-img:hover {
             transform: scale(1.05);
         }
 
@@ -195,25 +246,44 @@
             object-fit: contain;
         }
 
-        .accordion-button {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
+        .horizontal-gallery::-webkit-scrollbar {
+            height: 8px;
         }
-        .accordion-button:not(.collapsed) {
-            background: rgba(255, 255, 255, 0.25);
+
+        .horizontal-gallery::-webkit-scrollbar-thumb {
+            background-color: #33AEFF;
+            border-radius: 10px;
+
+
+
         }
     </style>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const galleryImages = document.querySelectorAll('.gallery-image img');
-            const modalImg = document.getElementById('galleryModalImg');
-
-            galleryImages.forEach(img => {
+        document.addEventListener('DOMContentLoaded', () => {
+            // ✅ Existing gallery image click handler
+            document.querySelectorAll('.gallery-img').forEach(img => {
                 img.addEventListener('click', function() {
-                    modalImg.src = this.dataset.bsImg;
+                    const src = this.dataset.bsImg || this.getAttribute('src');
+                    document.getElementById('galleryModalImg').src = src;
                 });
             });
+
+            // ✅ New form submit "Sending..." effect
+            const inquiryForm = document.getElementById('inquiryForm');
+            if (inquiryForm) {
+                inquiryForm.addEventListener('submit', function() {
+                    const btn = document.querySelector('#inquiryForm button[type="submit"]');
+                    if (btn) {
+                        btn.disabled = true;
+                        btn.innerHTML = `
+                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    Sending...
+                `;
+                    }
+                });
+            }
         });
     </script>
+
 </x-main>

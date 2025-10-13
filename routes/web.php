@@ -9,15 +9,14 @@ use App\Models\Config;
 use App\Models\Team;
 use App\Models\destination;
 
-Route::get('/', function(){
+Route::get('/', function () {
     return view('welcome');
-
 });
-Route::get('/' ,[DisplayController::class, 'index']);
+Route::get('/', [DisplayController::class, 'index']);
 
 //destinations
 
-Route::get("/destinations",[DisplayController::class, 'getalldestinations',]);
+Route::get("/destinations", [DisplayController::class, 'getalldestinations',]);
 
 Route::get('/destinations/{id}', function ($id) {
     $destination = destination::findOrFail($id);
@@ -25,32 +24,29 @@ Route::get('/destinations/{id}', function ($id) {
 })->name('destinations.show');
 
 
-
-
-
 //tours
-Route::get('/tours',[DisplayController::class, 'getalltours'])->name('tours.index');
+Route::get('/tours', [DisplayController::class, 'getalltours'])->name('tours.index');
 
 //blog
 
 Route::get('/blog', function () {
-    return view ('blog');
-    });
+    return view('blog');
+});
 //contact
 Route::get('/contact', function () {
     $setting = Config::first();
-    return view ('contact', ['setting' => $setting]);
-    });
-    //reviews
-    Route::post('/reviews',[inquiryController::class, 'review'])->name('reviews.store');
+    return view('contact', ['setting' => $setting]);
+});
+//reviews
+Route::post('/reviews', [inquiryController::class, 'review'])->name('reviews.store');
 
 //About
 
 Route::get('/about', function () {
     $setting = Config::first();
     $teams = Team::get();
-    return view ('about', ['setting' => $setting, 'teams' => $teams]);
-    });
+    return view('about', ['setting' => $setting, 'teams' => $teams]);
+});
 
 //tour.shows
 
@@ -61,7 +57,7 @@ Route::get('/about', function () {
 
 //inquiries
 
-Route::post('/inquiries',[inquiryController::class, 'inquiry'])->name('inquiries.store');
+Route::post('/inquiries', [inquiryController::class, 'inquiry'])->name('inquiries.store');
 
 
 
@@ -82,4 +78,4 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('appearance.edit');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

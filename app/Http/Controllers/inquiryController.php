@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\inquiry;
+use App\Notifications\InquiryNotification;
 use Illuminate\Http\Request;
 use App\Models\review;
+use Illuminate\Support\Facades\Notification;
 
 class InquiryController extends Controller
 {
@@ -18,9 +20,15 @@ class InquiryController extends Controller
             'message' => 'nullable|string',
             'date' => 'required|date',
             'destination_id' => 'required|integer',
-            'tour_id' => 'required|integer',
+            'tour_id' => 'nullable|integer',
             'user_id' => 'nullable|integer',
         ]);
+        Notification::route('mail', 'wadecalvin9@gmail.com')
+            ->notify(new InquiryNotification($validatedData));
+
+        Notification::route('mail', 'mwonicyrilbill@gmail.com')
+            ->notify(new InquiryNotification($validatedData));
+
         inquiry::create($validatedData);
         return redirect()->route('tours.index')
             ->with('success', 'Your inquiry has been sent successfully!');
@@ -39,6 +47,4 @@ class InquiryController extends Controller
         return redirect('contact')
             ->with('success', 'Thank you for the review!');
     }
-
-
 }

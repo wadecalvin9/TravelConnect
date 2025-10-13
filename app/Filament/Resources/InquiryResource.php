@@ -38,6 +38,7 @@ class InquiryResource extends Resource
                     ->required(),
 
                 // Tour relationship
+
                 Select::make('tour_id')
                     ->relationship('tour', 'name')
                     ->required(),

@@ -29,4 +29,9 @@ class Tour extends Model
         'itenary' => 'array',
         'images' => 'array',
     ];
+
+    public function ThingToDos()
+    {
+        return $this->hasMany(ThingToDo::class, 'tour_id');
+    }
 }

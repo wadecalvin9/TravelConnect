@@ -16,7 +16,7 @@ class DisplayController extends Controller
 {
 public function index()
 {
-    $destinations = destination::all()->take(5);
+    $destinations = destination::latest()->get()->take(5);
     $tours = Tour::all()->take(5);
     $reviews = review::all();
     $settings= Config::first();
