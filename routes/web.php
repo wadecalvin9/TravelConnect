@@ -85,5 +85,18 @@ Route::middleware('auth')->group(function () {
         ->name('appearance.edit');
 });
 
+// Currency Converter Routes
+Route::get('/currency-converter', [App\Http\Controllers\CurrencyController::class, 'index'])
+    ->name('currency.converter');
+
+Route::post('/currency-convert', [App\Http\Controllers\CurrencyController::class, 'convert'])
+    ->name('currency.convert');
+
+Route::get('/currency-convert', [App\Http\Controllers\CurrencyController::class, 'convert'])
+    ->name('currency.convert.get');
+
+Route::get('/currencies', [App\Http\Controllers\CurrencyController::class, 'getSupportedCurrencies'])
+    ->name('currencies.list');
+
 // Authentication routes
 require __DIR__ . '/auth.php';
