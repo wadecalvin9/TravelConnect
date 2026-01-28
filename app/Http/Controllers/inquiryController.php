@@ -35,6 +35,7 @@ class InquiryController extends Controller
             ->with('success', 'Your inquiry has been sent successfully!');
     }
 
+    // Review Store Function
 
     public function review(Request $request)
     {
