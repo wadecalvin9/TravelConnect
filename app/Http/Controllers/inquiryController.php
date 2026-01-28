@@ -12,6 +12,7 @@ class InquiryController extends Controller
 {
     public function inquiry(Request $request)
     {
+        // Validate the incoming request data
         $validatedData = $request->validate([
             'fullname' => 'required|string|max:255',
             'email' => 'required|email|max:255',
