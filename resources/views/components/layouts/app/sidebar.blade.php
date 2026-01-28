@@ -14,6 +14,7 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item icon="currency-dollar" :href="route('currency.converter')" :current="request()->routeIs('currency.converter')" wire:navigate>{{ __('Currency Converter') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

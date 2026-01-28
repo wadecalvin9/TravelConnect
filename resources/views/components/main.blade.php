@@ -103,6 +103,7 @@
          <li class="nav-item"><a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">Home</a></li>
           <li class="nav-item"><a class="nav-link {{ request()->is('destinations') ? 'active' : '' }}" href="/destinations">Destinations</a></li>
           <li class="nav-item"><a class="nav-link {{ request()->is('tours') ? 'active' : '' }}" href="/tours">Hotels</a></li>
+          <li class="nav-item"><a class="nav-link {{ request()->is('currency-converter') ? 'active' : '' }}" href="/currency-converter">Currency Converter</a></li>
           <li class="nav-item"><a class="nav-link {{ request()->is('about') ? 'active' : '' }}" href="/about">About</a></li>
           <li class="nav-item"><a class="nav-link {{ request()->is('contact') ? 'active' : '' }}" href="/contact">Contact</a></li>
           <div class="nav-underline"></div>
@@ -143,6 +144,7 @@
           <ul class="list-unstyled">
             <li><a href="/destinations" class="text-decoration-none">Destinations</a></li>
             <li><a href="/tours" class="text-decoration-none">Tours</a></li>
+            <li><a href="/currency-converter" class="text-decoration-none">Currency Converter</a></li>
             <li><a href="/about" class="text-decoration-none">About</a></li>
             <li><a href="/contact" class="text-decoration-none">Contact</a></li>
           </ul>
