@@ -14,49 +14,72 @@ class CurrencyController extends Controller
 
     public function convert(Request $request)
     {
-        $amount = $request->input('amount');
-        $fromCurrency = $request->input('from_currency');
-        $toCurrency = $request->input('to_currency');
+        try {
+            // For GET requests, use query parameters; for POST requests, use input
+            $amount = $request->input('amount') ?: $request->query('amount');
+            $fromCurrency = $request->input('from_currency') ?: $request->query('from_currency');
+            $toCurrency = $request->input('to_currency') ?: $request->query('to_currency');
 
-        // Using a free currency conversion API
-        $apiKey = env('EXCHANGE_API_KEY'); // You'll need to add this to your .env file
-        
-        if (!$apiKey) {
-            // Fallback to a free tier API if no key is provided
-            $response = Http::get("https://api.exchangerate-api.com/v4/latest/{$fromCurrency}");
-        } else {
-            $response = Http::withHeaders([
-                'apikey' => $apiKey
-            ])->get("https://api.apilayer.com/exchangerates_data/convert?to={$toCurrency}&from={$fromCurrency}&amount={$amount}");
-        }
-
-        if ($response->successful()) {
-            $data = $response->json();
-            
-            if (!$apiKey) {
-                // Handle response from exchange-api.com
-                if (isset($data['rates'][$toCurrency])) {
-                    $convertedAmount = $data['rates'][$toCurrency] * $amount;
-                    $rate = $data['rates'][$toCurrency];
-                } else {
-                    return response()->json(['error' => 'Invalid currency'], 400);
-                }
-            } else {
-                // Handle response from apilayer
-                $convertedAmount = $data['result'];
-                $rate = $data['info']['rate'];
+            // Validate inputs
+            if (!$amount || !$fromCurrency || !$toCurrency) {
+                return response()->json(['error' => 'Missing required parameters'], 400);
             }
 
-            return response()->json([
-                'success' => true,
-                'original_amount' => $amount,
-                'from_currency' => $fromCurrency,
-                'to_currency' => $toCurrency,
-                'converted_amount' => $convertedAmount,
-                'exchange_rate' => $rate
+            // Using a free currency conversion API
+            $apiKey = env('EXCHANGE_API_KEY'); // You'll need to add this to your .env file
+            
+            if (!$apiKey) {
+                // Fallback to a free tier API if no key is provided
+                $response = Http::get("https://api.exchangerate-api.com/v4/latest/{$fromCurrency}");
+            } else {
+                $response = Http::withHeaders([
+                    'apikey' => $apiKey
+                ])->get("https://api.apilayer.com/exchangerates_data/convert?to={$toCurrency}&from={$fromCurrency}&amount={$amount}");
+            }
+
+            if ($response->successful()) {
+                $data = $response->json();
+                
+                if (!$apiKey) {
+                    // Handle response from exchange-api.com
+                    if (isset($data['rates'][$toCurrency])) {
+                        $convertedAmount = $data['rates'][$toCurrency] * $amount;
+                        $rate = $data['rates'][$toCurrency];
+                    } else {
+                        return response()->json(['error' => 'Invalid currency'], 400);
+                    }
+                } else {
+                    // Handle response from apilayer
+                    $convertedAmount = $data['result'] ?? 0;
+                    $rate = $data['info']['rate'] ?? 0;
+                }
+
+                return response()->json([
+                    'success' => true,
+                    'original_amount' => $amount,
+                    'from_currency' => $fromCurrency,
+                    'to_currency' => $toCurrency,
+                    'converted_amount' => $convertedAmount,
+                    'exchange_rate' => $rate
+                ]);
+            } else {
+                \Log::error('Currency conversion API failed', [
+                    'status_code' => $response->status(),
+                    'response' => $response->body(),
+                    'params' => ['amount' => $amount, 'from' => $fromCurrency, 'to' => $toCurrency]
+                ]);
+                return response()->json(['error' => 'Failed to fetch exchange rate'], 500);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Currency conversion error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'params' => [
+                    'amount' => $request->input('amount'),
+                    'from_currency' => $request->input('from_currency'),
+                    'to_currency' => $request->input('to_currency')
+                ]
             ]);
-        } else {
-            return response()->json(['error' => 'Failed to fetch exchange rate'], 500);
+            return response()->json(['error' => 'Internal server error'], 500);
         }
     }
 

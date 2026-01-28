@@ -92,6 +92,9 @@ Route::get('/currency-converter', [App\Http\Controllers\CurrencyController::clas
 Route::post('/currency-convert', [App\Http\Controllers\CurrencyController::class, 'convert'])
     ->name('currency.convert');
 
+Route::get('/currency-convert', [App\Http\Controllers\CurrencyController::class, 'convert'])
+    ->name('currency.convert.get');
+
 Route::get('/currencies', [App\Http\Controllers\CurrencyController::class, 'getSupportedCurrencies'])
     ->name('currencies.list');
 

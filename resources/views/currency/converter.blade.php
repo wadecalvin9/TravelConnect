@@ -137,17 +137,19 @@
             convertBtn.textContent = 'Converting...';
             
             try {
-                const response = await fetch('/currency-convert', {
-                    method: 'POST',
+                // Build query parameters for GET request to avoid CSRF issues
+                const params = new URLSearchParams({
+                    amount: parseFloat(amountInput.value),
+                    from_currency: fromCurrencySelect.value,
+                    to_currency: toCurrencySelect.value
+                });
+                
+                const response = await fetch(`/currency-convert?${params}`, {
+                    method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({
-                        amount: parseFloat(amountInput.value),
-                        from_currency: fromCurrencySelect.value,
-                        to_currency: toCurrencySelect.value
-                    })
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
                 });
                 
                 const data = await response.json();
